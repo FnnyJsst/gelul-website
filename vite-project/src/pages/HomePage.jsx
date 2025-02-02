@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import HomePageBanner from "../components/home/HomePageBanner";
 
 function HomePage () {
   return (
     <>
-      <h1>homepage</h1>
+      <HomePageBanner />
     </>
   )
 }
