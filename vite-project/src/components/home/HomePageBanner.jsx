@@ -5,7 +5,7 @@ import { BsArrowRight } from "react-icons/bs";
 import test from "../../assets/images/test.jpg"
 
 const BannerDiv = styled.div`
-  height: 45vh;
+  height: 55vh;
   width: 100%;
   padding: 6vh;
   background-image: url(${test});

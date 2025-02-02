@@ -4,7 +4,6 @@ import colors from "../../constants/style";
 const Card = styled.div`
   width: 40vh;
   height: 50vh;
-  margin-bottom: 20vh;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -14,6 +13,7 @@ const Card = styled.div`
   background-size: cover;
   background-position: center;
   position: relative;
+  cursor: pointer;
 `
 
 const Overlay = styled.div`

@@ -11,7 +11,9 @@ const CardDiv = styled.div`
   align-item: center;
   gap: 20vh;
   justify-content: center;
-  margin-top: 10vh;
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+  background-color: #f2eaea;
 `;
 
 function HomePage () {
