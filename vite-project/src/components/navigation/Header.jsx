@@ -1,19 +1,32 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { IoMenuOutline, IoSearchOutline, IoPersonOutline, IoHeartOutline, IoCartOutline } from "react-icons/io5";
-import colors from "../../constants/style";
+import { PiBasket } from "react-icons/pi";
 import logo from "../../assets/images/logo.png"
+import IconHeader from "../buttons/IconHeader"
 import InputSearch from "../InputSearch";
 
 const HeaderContainer = styled.div`
-  witdh: 0.1vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 `;
 
-const LeftSection = styled.div``;
+const LeftSection = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;`
 
 const RightSection = styled.div`
-`;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`
 
+const Logo = styled.img`
+  height: 3.5rem;
+`;
 
 
 function Header() {
@@ -24,29 +37,19 @@ function Header() {
   }
 
   return (
-    <HeaderContainer style={{display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'space-between' }}>
+    <HeaderContainer>
       <LeftSection>
-        <button style={{border:'none', backgroundColor: colors.white}}>
-          <IoMenuOutline style={{ width: '40px', height: '40px'}} />
-        </button>
-        <img src={logo} style={{width:'40vh', marginLeft:'20px'}} />
+        <IconHeader Icon={IoMenuOutline} iconWidth={'2.5rem'} iconHeight={'2.5rem'}/>
+        <Logo src={logo} />
       </LeftSection>
       <RightSection>
         {inputSearch == true ? 
         <InputSearch />
         : ""}
-        <button onClick={makesInputSearchAppears} style={{border:'none', backgroundColor: colors.white, marginRight: '20px' }}>
-          <IoSearchOutline style={{ width: '25px', height: '25px'}} />
-        </button>
-        <button style={{border:'none', backgroundColor: colors.white, marginRight: '20px'}}>
-          <IoPersonOutline style={{ width: '25px', height: '25px'}} />
-        </button>
-        <button style={{border:'none', backgroundColor: colors.white, marginRight: '20px'}}>
-          <IoHeartOutline style={{ width: '25px', height: '25px'}} />
-        </button>
-        <button style={{border:'none', backgroundColor: colors.white, marginRight: '20px'}}>
-          <IoCartOutline style={{ width: '25px', height: '25px'}} />
-        </button>
+        <IconHeader Icon={IoSearchOutline} onClick={makesInputSearchAppears} />
+        <IconHeader Icon={IoPersonOutline} />
+        <IconHeader Icon={IoHeartOutline} />
+        <IconHeader Icon={PiBasket} />
       </RightSection>
 
     </HeaderContainer>
