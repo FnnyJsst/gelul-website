@@ -2,13 +2,13 @@ import styled from "styled-components";
 import colors from "../../constants/style";
 import LargeButton from "../buttons/LargeButton";
 import { BsArrowRight } from "react-icons/bs";
-import banner from "../../assets/images/banner.jpg"
+import test from "../../assets/images/test.jpg"
 
 const BannerDiv = styled.div`
   height: 45vh;
   width: 100%;
   padding: 6vh;
-  background-image: url(${banner});
+  background-image: url(${test});
   background-size: cover;
   background-position: center;
   position: relative;
@@ -33,7 +33,7 @@ const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
   z-index: 1;
 `;
 
