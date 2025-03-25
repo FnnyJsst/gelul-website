@@ -5,7 +5,6 @@ import peinture from "../assets/images/peinture.jpg";
 const PageContainer = styled.div`
   display: flex;
   flex-direction: row;
-  margin-top: 8vh;
   margin-left: 12vh;
 `;
 
