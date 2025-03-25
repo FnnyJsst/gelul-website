@@ -5,7 +5,7 @@ import { BsArrowRight } from "react-icons/bs";
 import test from "../../assets/images/test.jpg"
 
 const BannerDiv = styled.div`
-  height: 55vh;
+  height: 40vh;
   width: 100%;
   padding: 6vh;
   background-image: url(${test});
@@ -46,7 +46,7 @@ function HomePageBanner() {
   return (
     <BannerDiv>
       <Overlay />
-      <Title>Créateur d'Originalités</Title>
+      <Title>Créateur d&apos;Originalités</Title>
       <ButtonWrapper>
         <LargeButton Icon={BsArrowRight} />
       </ButtonWrapper>

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import colors from "../../constants/style";
+import PropTypes from 'prop-types';
 
 const Card = styled.div`
   width: 40vh;
@@ -43,5 +44,10 @@ function HomeCard ({cardTitle, backgroundImage}) {
     </Card>
   )
 }
+
+HomeCard.propTypes = {
+  cardTitle: PropTypes.string.isRequired,
+  backgroundImage: PropTypes.string.isRequired,
+};
 
 export default HomeCard;

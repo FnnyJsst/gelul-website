@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import HomePageBanner from "../components/home/HomePageBanner";
 import HomeCard from "../components/cards/HomeCard";
+import AboutMe from "./AboutMe";
 import peinture from "../assets/images/peinture.jpg";
 import banc2 from "../assets/images/banc2.jpg";
 import pot from "../assets/images/pot.jpg"
@@ -25,6 +26,7 @@ function HomePage () {
         <HomeCard cardTitle={"Décoration"}backgroundImage={pot}/>
         <HomeCard cardTitle={"Peintures"} backgroundImage={peinture}/>
       </CardDiv>
+      <AboutMe />
     </>
   )
 }
