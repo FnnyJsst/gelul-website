@@ -21,6 +21,9 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $category = null;
+
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
@@ -32,6 +35,12 @@ class Product
 
     #[ORM\Column]
     private ?int $stock = null;
+
+    #[ORM\Column(length: 255)]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(length: 255)]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     /**
      * @var Collection<int, CartItem>

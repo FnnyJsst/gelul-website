@@ -18,17 +18,32 @@ class User
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
     private ?string $password = null;
 
-    #[ORM\Column(type: Types::ARRAY)]
-    private array $roles = [];
-
     #[ORM\Column(length: 255)]
     private ?string $name = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $firstName = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $role = null;
+
+    #[ORM\Column(length: 255, unique: true)]
+    private ?string $phone = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $address = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $city = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $zipCode = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -83,14 +98,14 @@ class User
         return $this;
     }
 
-    public function getRoles(): array
+    public function getRole(): ?string
     {
-        return $this->roles;
+        return $this->role;
     }
 
-    public function setRoles(array $roles): static
+    public function setRole(string $role): static
     {
-        $this->roles = $roles;
+        $this->role = $role;
 
         return $this;
     }
