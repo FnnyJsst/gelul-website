@@ -36,12 +36,6 @@ class Product
     #[ORM\Column]
     private ?int $stock = null;
 
-    #[ORM\Column(length: 255)]
-    private ?\DateTimeImmutable $createdAt = null;
-
-    #[ORM\Column(length: 255)]
-    private ?\DateTimeImmutable $updatedAt = null;
-
     /**
      * @var Collection<int, CartItem>
      */
@@ -54,10 +48,21 @@ class Product
     #[ORM\ManyToMany(targetEntity: Wishlist::class, mappedBy: 'items')]
     private Collection $wishlists;
 
+    /**
+     * @var Collection<int, Color>
+     */
+    #[ORM\ManyToMany(targetEntity: Color::class, inversedBy: 'products')]
+    #[ORM\JoinTable(name: 'product_colors')]
+    private Collection $availableColors;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $isCustomizable = false;
+
     public function __construct()
     {
         $this->cartItems = new ArrayCollection();
         $this->wishlists = new ArrayCollection();
+        $this->availableColors = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -73,6 +78,18 @@ class Product
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(string $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }
@@ -178,6 +195,42 @@ class Product
         if ($this->wishlists->removeElement($wishlist)) {
             $wishlist->removeItem($this);
         }
+
+        return $this;
+    }
+
+    public function getIsCustomizable(): bool
+    {
+        return $this->isCustomizable;
+    }
+
+    public function setIsCustomizable(bool $isCustomizable): static
+    {
+        $this->isCustomizable = $isCustomizable;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Color>
+     */
+    public function getAvailableColors(): Collection
+    {
+        return $this->availableColors;
+    }
+
+    public function addAvailableColor(Color $color): static
+    {
+        if (!$this->availableColors->contains($color)) {
+            $this->availableColors->add($color);
+        }
+
+        return $this;
+    }
+
+    public function removeAvailableColor(Color $color): static
+    {
+        $this->availableColors->removeElement($color);
 
         return $this;
     }
