@@ -8,32 +8,43 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['product:read']],
+    denormalizationContext: ['groups' => ['product:write']]
+)]
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['product:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['product:read', 'product:write'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['product:read', 'product:write'])]
     private ?string $category = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['product:read', 'product:write'])]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    #[Groups(['product:read', 'product:write'])]
     private ?string $price = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['product:read', 'product:write'])]
     private ?string $image = null;
 
     #[ORM\Column]
+    #[Groups(['product:read', 'product:write'])]
     private ?int $stock = null;
 
     /**
@@ -53,9 +64,11 @@ class Product
      */
     #[ORM\ManyToMany(targetEntity: Color::class, inversedBy: 'products')]
     #[ORM\JoinTable(name: 'product_colors')]
+    #[Groups(['product:read'])]
     private Collection $availableColors;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups(['product:read', 'product:write'])]
     private bool $isCustomizable = false;
 
     public function __construct()

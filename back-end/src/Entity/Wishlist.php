@@ -18,7 +18,7 @@ class Wishlist
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'wishlists')]
-    private ?user $user = null;
+    private ?User $user = null;
 
     /**
      * @var Collection<int, product>
@@ -49,12 +49,12 @@ class Wishlist
         return $this;
     }
 
-    public function getUser(): ?user
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?user $user): static
+    public function setUser(?User $user): static
     {
         $this->user = $user;
 

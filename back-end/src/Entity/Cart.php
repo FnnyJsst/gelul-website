@@ -16,7 +16,7 @@ class Cart
     private ?int $id = null;
 
     #[ORM\OneToOne(inversedBy: 'cart', cascade: ['persist', 'remove'])]
-    private ?user $user = null;
+    private ?User $user = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $totalPrice = null;
@@ -39,12 +39,12 @@ class Cart
         return $this;
     }
 
-    public function getUser(): ?user
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?user $user): static
+    public function setUser(?User $user): static
     {
         $this->user = $user;
 
