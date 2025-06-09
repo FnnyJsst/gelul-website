@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  php:
+    build:
+      context: ./back-end
+      dockerfile: docker/php/Dockerfile
+    volumes:
+      - ./back-end:/var/www/html
+    depends_on:
+      - mysql
+    environment:
+      DATABASE_URL: mysql://gelul:gelul_password@mysql:3306/gelul_db?serverVersion=8.0
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./back-end:/var/www/html
+      - ./back-end/docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+
+  mysql:
+    image: mysql:8.0
+    platform: linux/arm64/v8
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: gelul_db
+      MYSQL_USER: gelul
+      MYSQL_PASSWORD: gelul_password
+      MYSQL_ROOT_PASSWORD: root_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: arm64v8/phpmyadmin:latest
+    platform: linux/arm64/v8
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: root_password
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data: 

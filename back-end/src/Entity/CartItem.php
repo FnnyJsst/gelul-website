@@ -5,23 +5,36 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\CartItemRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['cart_item:read']],
+    denormalizationContext: ['groups' => ['cart_item:write']]
+)]
 #[ORM\Entity(repositoryClass: CartItemRepository::class)]
 class CartItem
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['cart_item:read'])]
     private ?int $id = null;
 
+    #[ORM\ManyToOne(inversedBy: 'cartItems', targetEntity: Cart::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['cart_item:read', 'cart_item:write'])]
+    private ?Cart $cart = null;
+
     #[ORM\ManyToOne(inversedBy: 'cartItems')]
+    #[Groups(['cart_item:read', 'cart_item:write'])]
     private ?Product $product = null;
 
     #[ORM\Column]
+    #[Groups(['cart_item:read', 'cart_item:write'])]
     private ?int $quantity = null;
 
     #[ORM\Column]
+    #[Groups(['cart_item:read', 'cart_item:write'])]
     private ?float $price = null;
 
     public function getId(): ?int
@@ -29,10 +42,14 @@ class CartItem
         return $this->id;
     }
 
-    public function setId(int $id): static
+    public function getCart(): ?Cart
     {
-        $this->id = $id;
+        return $this->cart;
+    }
 
+    public function setCart(?Cart $cart): static
+    {
+        $this->cart = $cart;
         return $this;
     }
 
@@ -44,7 +61,6 @@ class CartItem
     public function setProduct(?Product $product): static
     {
         $this->product = $product;
-
         return $this;
     }
 
@@ -56,7 +72,6 @@ class CartItem
     public function setQuantity(int $quantity): static
     {
         $this->quantity = $quantity;
-
         return $this;
     }
 
@@ -68,7 +83,6 @@ class CartItem
     public function setPrice(float $price): static
     {
         $this->price = $price;
-
         return $this;
     }
 }
