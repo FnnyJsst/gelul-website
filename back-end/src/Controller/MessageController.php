@@ -2,17 +2,92 @@
 
 namespace App\Controller;
 
+use App\Entity\Message;
+use App\Repository\MessageRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
-final class MessageController extends AbstractController
+#[Route('/api/messages')]
+class MessageController extends AbstractController
 {
-    #[Route('/message', name: 'app_message')]
-    public function index(): Response
+    public function __construct(
+        private EntityManagerInterface $entityManager,
+        private MessageRepository $messageRepository,
+        private SerializerInterface $serializer
+    ) {}
+
+    #[Route('', name: 'app_message_list', methods: ['GET'])]
+    public function list(): JsonResponse
     {
-        return $this->render('message/index.html.twig', [
-            'controller_name' => 'MessageController',
+        $messages = $this->messageRepository->findAll();
+        
+        $jsonMessages = $this->serializer->serialize($messages, 'json', [
+            'groups' => ['message:read']
         ]);
+
+        return new JsonResponse($jsonMessages, Response::HTTP_OK, [], true);
+    }
+
+    #[Route('/{id}', name: 'app_message_show', methods: ['GET'])]
+    public function show(Message $message): JsonResponse
+    {
+        $jsonMessage = $this->serializer->serialize($message, 'json', [
+            'groups' => ['message:read']
+        ]);
+
+        return new JsonResponse($jsonMessage, Response::HTTP_OK, [], true);
+    }
+
+    #[Route('', name: 'app_message_create', methods: ['POST'])]
+    public function create(Request $request): JsonResponse
+    {
+        $message = $this->serializer->deserialize(
+            $request->getContent(),
+            Message::class,
+            'json'
+        );
+
+        $this->entityManager->flush();
+
+        $jsonMessage = $this->serializer->serialize($message, 'json', [
+            'groups' => ['message:read']
+        ]);
+
+        return new JsonResponse($jsonMessage, Response::HTTP_CREATED, [], true);
+    }
+
+    #[Route('/{id}', name: 'app_message_update', methods: ['PUT'])]
+    public function update(Request $request, Message $message): JsonResponse
+    {
+        $updatedMessage = $this->serializer->deserialize(
+            $request->getContent(),
+            Message::class,
+            'json'
+        );
+
+        $message->setContent($updatedMessage->getContent());
+        $message->setDate(new \DateTimeImmutable());
+
+        $this->entityManager->flush();
+
+        $jsonMessage = $this->serializer->serialize($message, 'json', [
+            'groups' => ['message:read']
+        ]);
+
+        return new JsonResponse($jsonMessage, Response::HTTP_OK, [], true);
+    }
+
+    #[Route('/{id}', name: 'app_message_delete', methods: ['DELETE'])]
+    public function delete(Message $message): JsonResponse
+    {
+        $this->entityManager->remove($message);
+        $this->entityManager->flush();
+
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 }
