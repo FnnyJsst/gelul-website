@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/api/messages')]
 class MessageController extends AbstractController
@@ -23,6 +24,7 @@ class MessageController extends AbstractController
         private ValidatorInterface $validator
     ) {}
 
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('', name: 'app_message_list', methods: ['GET'])]
     public function list(): JsonResponse
     {
@@ -35,9 +37,14 @@ class MessageController extends AbstractController
         return new JsonResponse($jsonMessages, Response::HTTP_OK, [], true);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('/{id}', name: 'app_message_show', methods: ['GET'])]
     public function show(Message $message): JsonResponse
     {
+        if (!$this->isGranted('ROLE_ADMIN') && $message->getUser() !== $this->getUser()) {
+            return new JsonResponse(['message' => 'Accès non autorisé'], JsonResponse::HTTP_FORBIDDEN);
+        }
+
         $jsonMessage = $this->serializer->serialize($message, 'json', [
             'groups' => ['message:read']
         ]);
@@ -45,6 +52,7 @@ class MessageController extends AbstractController
         return new JsonResponse($jsonMessage, Response::HTTP_OK, [], true);
     }
 
+    #[IsGranted('ROLE_USER')]
     #[Route('', name: 'app_message_create', methods: ['POST'])]
     public function create(Request $request): JsonResponse
     {
@@ -63,6 +71,7 @@ class MessageController extends AbstractController
             return new JsonResponse(['errors' => $errorMessages], JsonResponse::HTTP_BAD_REQUEST);
         }
 
+        $this->entityManager->persist($message);
         $this->entityManager->flush();
 
         $jsonMessage = $this->serializer->serialize($message, 'json', [
