@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/api/products')]
 class ProductController extends AbstractController
@@ -18,7 +19,8 @@ class ProductController extends AbstractController
     public function __construct(
         private EntityManagerInterface $entityManager,
         private ProductRepository $productRepository,
-        private SerializerInterface $serializer
+        private SerializerInterface $serializer,
+        private ValidatorInterface $validator
     ) {}
 
     #[Route('', name: 'app_product_list', methods: ['GET'])]
@@ -66,9 +68,14 @@ class ProductController extends AbstractController
         );
 
         // Validation of the data
-        $errors = $this->validateProduct($product);
+        $errors = $this->validator->validate($product);
         if (count($errors) > 0) {
-            return new JsonResponse(['errors' => $errors], Response::HTTP_BAD_REQUEST);
+            // Convert the errors to an array for a more readable format
+            $errorMessages = [];
+            foreach ($errors as $error) {
+                $errorMessages[$error->getPropertyPath()] = $error->getMessage();
+            }
+            return new JsonResponse(['errors' => $errorMessages], Response::HTTP_BAD_REQUEST);
         }
 
         // Persistence of the product
@@ -106,9 +113,14 @@ class ProductController extends AbstractController
         $product->setIsCustomizable($updatedProduct->getIsCustomizable());
 
         // Validation of the data
-        $errors = $this->validateProduct($product);
+        $errors = $this->validator->validate($product);
         if (count($errors) > 0) {
-            return new JsonResponse(['errors' => $errors], Response::HTTP_BAD_REQUEST);
+            // Convert the errors to an array for a more readable format
+            $errorMessages = [];
+            foreach ($errors as $error) {
+                $errorMessages[$error->getPropertyPath()] = $error->getMessage();
+            }
+            return new JsonResponse(['errors' => $errorMessages], Response::HTTP_BAD_REQUEST);
         }
 
         // Persistence of the modifications

@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/api/carts')]
 class CartController extends AbstractController
@@ -18,7 +19,8 @@ class CartController extends AbstractController
     public function __construct(
         private EntityManagerInterface $entityManager,
         private CartRepository $cartRepository,
-        private SerializerInterface $serializer
+        private SerializerInterface $serializer,
+        private ValidatorInterface $validator
     ) {}
 
     #[Route('', name: 'app_cart_list', methods: ['GET'])]
@@ -51,6 +53,15 @@ class CartController extends AbstractController
             Cart::class,
             'json'
         );
+
+        $errors = $this->validator->validate($cart);
+        if (count($errors) > 0) {
+            $errorMessages = [];
+            foreach ($errors as $error) {
+                $errorMessages[$error->getPropertyPath()] = $error->getMessage();
+            }
+             return new JsonResponse(['errors' => $errorMessages], JsonResponse::HTTP_BAD_REQUEST);
+        }
 
         $this->entityManager->persist($cart);
         $this->entityManager->flush();

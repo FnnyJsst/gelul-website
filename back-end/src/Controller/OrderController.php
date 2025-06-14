@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/api/orders')]
 final class OrderController extends AbstractController
@@ -18,7 +19,8 @@ final class OrderController extends AbstractController
     public function __construct(
         private EntityManagerInterface $entityManager,
         private OrderRepository $orderRepository,
-        private SerializerInterface $serializer
+        private SerializerInterface $serializer,
+        private ValidatorInterface $validator
     ) {}
 
     #[Route('', name: 'app_order_list', methods: ['GET'])]
@@ -40,6 +42,14 @@ final class OrderController extends AbstractController
     public function create(Request $request): JsonResponse
     {
         $order = $this->serializer->deserialize($request->getContent(), Order::class, 'json');
+        $errors = $this->validator->validate($order);
+        if (count($errors) > 0) {
+            $errorMessages = [];
+            foreach ($errors as $error) {
+                $errorMessages[$error->getPropertyPath()] = $error->getMessage();
+            }
+            return new JsonResponse(['errors' => $errorMessages], JsonResponse::HTTP_BAD_REQUEST);
+        }
         $this->entityManager->persist($order);
         $this->entityManager->flush();
         $jsonOrder = $this->serializer->serialize($order, 'json', ['groups' => ['order:read']]);
