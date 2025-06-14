@@ -2,17 +2,66 @@
 
 namespace App\Controller;
 
+use App\Entity\Order;
+use App\Repository\OrderRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
+#[Route('/api/orders')]
 final class OrderController extends AbstractController
 {
-    #[Route('/order', name: 'app_order')]
-    public function index(): Response
+    public function __construct(
+        private EntityManagerInterface $entityManager,
+        private OrderRepository $orderRepository,
+        private SerializerInterface $serializer
+    ) {}
+
+    #[Route('', name: 'app_order_list', methods: ['GET'])]
+    public function list(): JsonResponse
     {
-        return $this->render('order/index.html.twig', [
-            'controller_name' => 'OrderController',
-        ]);
+        $orders = $this->orderRepository->findAll();
+        $jsonOrders = $this->serializer->serialize($orders, 'json', ['groups' => ['order:read']]);
+        return new JsonResponse($jsonOrders, Response::HTTP_OK, [], true);
+    }
+
+    #[Route('/{id}', name: 'app_order_show', methods: ['GET'])]
+    public function show(Order $order): JsonResponse
+    {
+        $jsonOrder = $this->serializer->serialize($order, 'json', ['groups' => ['order:read']]);
+        return new JsonResponse($jsonOrder, Response::HTTP_OK, [], true);
+    }
+
+    #[Route('', name: 'app_order_create', methods: ['POST'])]
+    public function create(Request $request): JsonResponse
+    {
+        $order = $this->serializer->deserialize($request->getContent(), Order::class, 'json');
+        $this->entityManager->persist($order);
+        $this->entityManager->flush();
+        $jsonOrder = $this->serializer->serialize($order, 'json', ['groups' => ['order:read']]);
+        return new JsonResponse($jsonOrder, Response::HTTP_CREATED, [], true);
+    }
+
+    #[Route('/{id}', name: 'app_order_update', methods: ['PUT'])]
+    public function update(Request $request, Order $order): JsonResponse
+    {
+        $updatedOrder = $this->serializer->deserialize($request->getContent(), Order::class, 'json');
+        // Exemple de mise à jour (à adapter selon les propriétés de ton entité Order) : on met à jour le statut uniquement.
+        $order->setStatus($updatedOrder->getStatus());
+        $this->entityManager->flush();
+        $jsonOrder = $this->serializer->serialize($order, 'json', ['groups' => ['order:read']]);
+        return new JsonResponse($jsonOrder, Response::HTTP_OK, [], true);
+    }
+
+    #[Route('/{id}', name: 'app_order_delete', methods: ['DELETE'])]
+    public function delete(Order $order): JsonResponse
+    {
+        $this->entityManager->remove($order);
+        $this->entityManager->flush();
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 }
