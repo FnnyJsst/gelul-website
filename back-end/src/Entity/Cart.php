@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
     normalizationContext: ['groups' => ['cart:read']],
@@ -24,10 +25,12 @@ class Cart
 
     #[ORM\OneToOne(inversedBy: 'cart', cascade: ['persist', 'remove'])]
     #[Groups(['cart:read', 'cart:write'])]
+    #[Assert\NotBlank(message: "L'utilisateur est obligatoire")]
     private ?User $user = null;
 
     #[ORM\Column(nullable: true)]
     #[Groups(['cart:read', 'cart:write'])]
+    #[Assert\Positive(message: "Le prix total doit être supérieur à 0")]
     private ?float $totalPrice = null;
 
     #[ORM\Column(nullable: true)]

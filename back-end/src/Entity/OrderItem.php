@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\OrderItemRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: OrderItemRepository::class)]
 class OrderItem
@@ -22,11 +24,18 @@ class OrderItem
     private ?Product $product = null;
 
     #[ORM\Column]
+    #[Groups(['order:read', 'order:write'])]
+    #[Assert\Positive(message: "La quantité doit être supérieure à 0")]
     private ?int $quantity = null;
 
+    #[Groups(['order:read', 'order:write'])]
+    #[Assert\Positive(message: "Le prix doit être supérieur à 0")]
     #[ORM\Column(type: 'float')]
     private ?float $price = null;
 
+    #[ORM\Column(nullable: true)]
+    #[Groups(['order:read', 'order:write'])]
+    #[Assert\Positive(message: "Le sous-total doit être supérieur à 0")]
     #[ORM\Column(type: 'float')]
     private ?float $subTotal = null;
 

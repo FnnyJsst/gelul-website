@@ -2,11 +2,18 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\OrderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
+#[ApiResource(
+    normalizationContext: ['groups' => ['order:read']],
+    denormalizationContext: ['groups' => ['order:write']]
+)]
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
 #[ORM\Table(name: '`order`')]
 class Order
@@ -18,17 +25,26 @@ class Order
 
     #[ORM\ManyToOne(inversedBy: 'orders', targetEntity: User::class)]
     #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id", nullable: false)]
+    #[Groups(['order:read', 'order:write'])]
+    #[Assert\NotBlank(message: "L'utilisateur est obligatoire")]
     private ?User $user = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['order:read', 'order:write'])]
+    #[Assert\NotBlank(message: "Le statut est obligatoire")]
     private ?string $status = null;
-    
+
     #[ORM\Column(type: 'datetime_immutable')]
+    #[Groups(['order:read', 'order:write'])]
+    #[Assert\NotBlank(message: "La date est obligatoire")]
     private ?\DateTimeImmutable $date = null;
 
     #[ORM\Column(length: 255)]
     private ?string $address = null;
 
+    #[Groups(['order:read', 'order:write'])]
+    #[Assert\NotBlank(message: "Le prix total est obligatoire")]
+    #[Assert\Positive(message: "Le prix total doit être supérieur à 0")]
     #[ORM\Column(type: 'float')]
     private ?float $totalPrice = null;
 

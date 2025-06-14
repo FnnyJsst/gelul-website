@@ -8,8 +8,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['user:read']],
+    denormalizationContext: ['groups' => ['user:write']]
+)]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User
 {
@@ -19,29 +24,59 @@ class User
     private ?int $id = null;
 
     #[ORM\Column(length: 255, unique: true)]
+    #[Groups(['user:read', 'user:write'])]
+    #[Assert\NotBlank(message: "L'email est obligatoire")]
+    #[Assert\Email(message: "L'email '{{ value }}' n'est pas valide.")]
     private ?string $email = null;
 
+    #[ORM\Column(length: 255)]
+    #[Groups(['user:read', 'user:write'])]
+    #[Assert\NotBlank(message: "Le mot de passe est obligatoire")]
+    #[Assert\Length(min: 8, max: 255, minMessage: "Le mot de passe doit comporter au moins {{ limit }} caractères", maxMessage: "Le mot de passe ne peut pas dépasser {{ limit }} caractères")]
     #[ORM\Column(length: 255)]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['user:read', 'user:write'])]
+    #[Assert\NotBlank(message: "Le nom est obligatoire")]
+    #[Assert\Length(min: 1, max: 255, minMessage: "Le nom doit comporter au moins {{ limit }} caractère", maxMessage: "Le nom ne peut pas dépasser {{ limit }} caractères")]
     private ?string $name = null;
 
+    #[ORM\Column(length: 255)]
+    #[Groups(['user:read', 'user:write'])]
+    #[Assert\NotBlank(message: "Le prénom est obligatoire")]
+    #[Assert\Length(min: 1, max: 255, minMessage: "Le prénom doit comporter au moins {{ limit }} caractère", maxMessage: "Le prénom ne peut pas dépasser {{ limit }} caractères")]
     #[ORM\Column(length: 255)]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['user:read', 'user:write'])]
+    #[Assert\NotBlank(message: "Le rôle est obligatoire")]
+    #[Assert\Choice(['ROLE_USER', 'ROLE_ADMIN'], message: "Le rôle doit être soit 'ROLE_USER' soit 'ROLE_ADMIN'")]
     private ?string $role = null;
 
     #[ORM\Column(length: 255, unique: true)]
+    #[Groups(['user:read', 'user:write'])]
+    #[Assert\NotBlank(message: "Le numéro de téléphone est obligatoire")]
+    #[Assert\Length(min: 1, max: 255, minMessage: "Le numéro de téléphone doit comporter au moins {{ limit }} caractère", maxMessage: "Le numéro de téléphone ne peut pas dépasser {{ limit }} caractères")]
     private ?int $phone = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['user:read', 'user:write'])]
+    #[Assert\NotBlank(message: "L'adresse est obligatoire")]
+    #[Assert\Length(min: 1, max: 255, minMessage: "L'adresse doit comporter au moins {{ limit }} caractère", maxMessage: "L'adresse ne peut pas dépasser {{ limit }} caractères")]
     private ?string $address = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['user:read', 'user:write'])]
+    #[Assert\NotBlank(message: "La ville est obligatoire")]
+    #[Assert\Length(min: 1, max: 255, minMessage: "La ville doit comporter au moins {{ limit }} caractère", maxMessage: "La ville ne peut pas dépasser {{ limit }} caractères")]
     private ?string $city = null;
 
+    #[ORM\Column(length: 255)]
+    #[Groups(['user:read', 'user:write'])]
+    #[Assert\NotBlank(message: "Le code postal est obligatoire")]
+    #[Assert\Length(min: 1, max: 255, minMessage: "Le code postal doit comporter au moins {{ limit }} caractère", maxMessage: "Le code postal ne peut pas dépasser {{ limit }} caractères")]
     #[ORM\Column(length: 255)]
     private ?string $zipCode = null;
 

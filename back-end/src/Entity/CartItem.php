@@ -6,6 +6,7 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\CartItemRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ApiResource(
     normalizationContext: ['groups' => ['cart_item:read']],
@@ -22,19 +23,25 @@ class CartItem
 
     #[ORM\ManyToOne(inversedBy: 'cartItems', targetEntity: Cart::class)]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(message: "Le panier est obligatoire")]
     #[Groups(['cart_item:read', 'cart_item:write'])]
     private ?Cart $cart = null;
 
     #[ORM\ManyToOne(inversedBy: 'cartItems')]
+    #[Assert\NotBlank(message: "Le produit est obligatoire")]
     #[Groups(['cart_item:read', 'cart_item:write'])]
     private ?Product $product = null;
 
     #[ORM\Column]
     #[Groups(['cart_item:read', 'cart_item:write'])]
+    #[Assert\NotBlank(message: "La quantité est obligatoire")]
+    #[Assert\Positive(message: "La quantité doit être supérieure à 0")]
     private ?int $quantity = null;
 
     #[ORM\Column]
     #[Groups(['cart_item:read', 'cart_item:write'])]
+    #[Assert\NotBlank(message: "Le prix est obligatoire")]
+    #[Assert\Positive(message: "Le prix doit être supérieur à 0")]
     private ?float $price = null;
 
     public function getId(): ?int

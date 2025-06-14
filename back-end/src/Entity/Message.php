@@ -2,9 +2,17 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\MessageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
+
+#[ApiResource(
+    normalizationContext: ['groups' => ['message:read']],
+    denormalizationContext: ['groups' => ['message:write']]
+)]
 #[ORM\Entity(repositoryClass: MessageRepository::class)]
 class Message
 {
@@ -18,9 +26,15 @@ class Message
     private ?User $user = null;
    
     #[ORM\Column(length: 255)]
+    #[Groups(['message:read', 'message:write'])]
+    #[Assert\NotBlank(message: "Le sujet est obligatoire")]
+    #[Assert\Length(min: 1, max: 255, minMessage: "Le sujet doit comporter au moins {{ limit }} caractère", maxMessage: "Le sujet ne peut pas dépasser {{ limit }} caractères")]
     private ?string $subject = null;
 
     #[ORM\Column(type: 'text')]
+    #[Groups(['message:read', 'message:write'])]
+    #[Assert\NotBlank(message: "Le contenu est obligatoire")]
+    #[Assert\Length(min: 1, max: 1000, minMessage: "Le contenu doit comporter au moins {{ limit }} caractère", maxMessage: "Le contenu ne peut pas dépasser {{ limit }} caractères")]
     private ?string $content = null;
 
     #[ORM\Column(type: 'datetime_immutable')]
