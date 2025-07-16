@@ -2,12 +2,13 @@
 import { Sidebar as PrimeSidebar } from 'primereact/sidebar';
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
+import logo from '../../assets/images/logo.png';
 
 const GlobalSidebarStyle = createGlobalStyle`
   .custom-sidebar .p-sidebar-header {
     position: absolute;
     top: 0;
-    right: 0;
+    left: 1rem;
     z-index: 1000;
     background: transparent;
   }
@@ -18,15 +19,12 @@ const GlobalSidebarStyle = createGlobalStyle`
   }
   
   .custom-sidebar .p-sidebar-close {
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 1rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: none !important;
+  }
+  
+  .p-sidebar-mask {
+    background-color: rgba(0, 0, 0, 0.6) !important;
+    backdrop-filter: blur(1px);
   }
 `;
 
@@ -34,30 +32,23 @@ const SidebarContent = styled.div`
   background-color: #f0f0f0;
   height: 100vh;
   padding: 1rem;
-  margin-top: -1rem;
+  padding-top: 5rem;
   margin-left: -1rem;
   margin-right: -1rem;
-  
-  h2 {
-    margin-bottom: 1rem;
-    color: #333;
-    padding-top: 3rem;
-  }
-  
-  p {
-    line-height: 1.6;
-    color: #666;
+  font-size: 1.5rem;
+
+  a {
+    text-decoration: none;
+    color: #000;
   }
   
   .menu-item {
     padding: 0.75rem 1rem;
     cursor: pointer;
     transition: color 0.2s;
-    border-bottom: 1px solid #ddd;
-    
+  
     &:hover {
-      color: #007bff;
-      background-color: #e8e8e8;
+      color:rgb(107, 107, 77);
     }
   }
 `;
@@ -72,13 +63,45 @@ const Sidebar = ({ visible, onHide }) => {
                 position="left"
                 style={{ width: '300px', height: '100vh' }}
                 className="custom-sidebar"
+                header={
+                    <div style={{ 
+                        display: 'flex', 
+                        alignItems: 'center',
+                        gap: '5px',
+                        padding: '1rem',
+                        paddingLeft: '0'
+                    }}>
+                        <button 
+                            onClick={onHide}
+                            style={{
+                                border: 'none',
+                                width: '40px',
+                                height: '40px',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'flex-start',
+                                fontSize: '1.2rem'
+                            }}
+                        >
+                            ✕
+                        </button>
+                        <img 
+                            src={logo} 
+                            alt="Logo Gelul" 
+                            style={{ 
+                                height: '40px',
+                                width: 'auto'
+                            }} 
+                        />
+                    </div>
+                }
             >
                 <SidebarContent>
-                    <h2>Menu</h2>
-                    <div className="menu-item">Accueil</div>
-                    <div className="menu-item">Boutique</div>
-                    <div className="menu-item">Décoration</div>
-                    <div className="menu-item">Peinture</div>
+                    <a href="/"><div className="menu-item">Accueil</div></a>
+                    <a href="/boutique"><div className="menu-item">Boutique</div></a>
+                    <a href="/decorations"><div className="menu-item">Décoration</div></a>
+                    <a href="/peintures"><div className="menu-item">Peinture</div></a>
                 </SidebarContent>
             </PrimeSidebar>
         </>
