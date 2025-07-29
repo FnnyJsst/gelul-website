@@ -1,11 +1,13 @@
 import FooterCard from "../cards/FooterCard";
 import styled from "styled-components";
+import IconFooter from "../buttons/IconFooter";
+import { FaFacebook, FaInstagram } from "react-icons/fa";
 
 const FooterContainer = styled.div`
-  background-color: #e5e5d5;
+  background-color: #efe9e9;
   display: flex;
   flex-direction: row;
-  height: 20vh
+  min-height: 20vh;
   `;
 
 const LeftContainer = styled.div`
@@ -14,13 +16,15 @@ const LeftContainer = styled.div`
   align-items: flex-start;
   justify-content: center;
   gap: 20vh;
+  margin-left: 10vh;
 `;
 
 const RightContainer = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
+  gap: 10px;
 `;
 
 
@@ -33,6 +37,8 @@ function Footer () {
         <FooterCard title="Contact" elements={["contact@gelul.com"]} />
       </LeftContainer>
       <RightContainer>
+        <IconFooter Icon={FaFacebook} />
+        <IconFooter Icon={FaInstagram} />
       </RightContainer>
     </FooterContainer>
   )
