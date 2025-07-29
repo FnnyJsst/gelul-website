@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { IoMenuOutline, IoSearchOutline, IoPersonOutline, IoHeartOutline, IoCartOutline } from "react-icons/io5";
+import { IoMenuOutline, IoPersonOutline, IoHeartOutline, IoCartOutline } from "react-icons/io5";
 import { PiBasket } from "react-icons/pi";
 import logo from "../../assets/images/logo.png"
 import IconHeader from "../buttons/IconHeader"
@@ -23,6 +23,7 @@ const RightSection = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  gap: 1rem;
 `
 
 const Logo = styled.img`
@@ -31,12 +32,7 @@ const Logo = styled.img`
 
 
 function Header() {
-  const [inputSearch, setInputSearch] = useState(false);
   const [sidebarVisible, setSidebarVisible] = useState(false);
-
-  function makesInputSearchAppears() {
-    setInputSearch(true);
-  }
 
   function toggleSidebar() {
     setSidebarVisible(!sidebarVisible);
@@ -55,10 +51,7 @@ function Header() {
           <Logo src={logo} />
         </LeftSection>
       <RightSection>
-        {inputSearch == true ? 
         <InputSearch />
-        : ""}
-        <IconHeader Icon={IoSearchOutline} onClick={makesInputSearchAppears} />
         <IconHeader Icon={IoPersonOutline} />
         <IconHeader Icon={IoHeartOutline} />
         <IconHeader Icon={PiBasket} />

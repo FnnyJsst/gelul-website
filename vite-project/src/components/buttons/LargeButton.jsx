@@ -9,11 +9,49 @@ const Button = styled.button `
   align-items: center;
   gap: 10px;
   font-weight: 500;
+  background: white;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
   
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.05), transparent);
+    transition: left 0.5s;
+  }
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: #ccc;
+    
+    &::before {
+      left: 100%;
+    }
+    
     svg {
+      transform: scale(1.1) rotate(10deg);
+    }
+  }
+  
+  &:active {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  svg {
     width: ${(props) => props.$iconWidth || "15px"};
     height: ${(props) => props.$iconHeight || "15px"};
-  }`;
+    transition: all 0.3s ease;
+  }
+`;
 
 function LargeButton ({Icon, onClick, iconWidth, iconHeight }) {
   return (
