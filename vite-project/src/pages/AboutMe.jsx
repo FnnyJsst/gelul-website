@@ -41,7 +41,7 @@ function AboutMe () {
     <>
       <PageContainer>
           <LeftSection>
-              <AboutMeCard backgroundImage={peinture} />
+            <AboutMeCard />
           </LeftSection>
           <RightSection>
               <Title>About Me</Title>

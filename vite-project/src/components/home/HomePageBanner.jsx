@@ -2,14 +2,12 @@ import styled from "styled-components";
 import { colors, fontSizes } from "../../constants/style";
 import LargeButton from "../buttons/LargeButton";
 import { BsArrowRight } from "react-icons/bs";
-import test from "../../assets/images/test.jpg"
-
 const BannerDiv = styled.div`
   height: 40vh;
   width: 100%;
   padding: 6vh;
   padding-left: 10vh;
-  background-image: url(${test});
+  background-image: url("${new URL('../../assets/images/test.jpg', import.meta.url).href}");
   background-size: cover;
   background-position: center;
   position: relative;
