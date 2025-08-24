@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import colors from "../../constants/style";
+import { colors, fontSizes } from "../../constants/style";
 import LargeButton from "../buttons/LargeButton";
 import { BsArrowRight } from "react-icons/bs";
 import test from "../../assets/images/test.jpg"
@@ -8,6 +8,7 @@ const BannerDiv = styled.div`
   height: 40vh;
   width: 100%;
   padding: 6vh;
+  padding-left: 10vh;
   background-image: url(${test});
   background-size: cover;
   background-position: center;
@@ -20,7 +21,7 @@ const BannerDiv = styled.div`
 const Title = styled.h1`
   color: ${colors.white};
   font-weight: normal;
-  font-size: 35px;
+  font-size: ${fontSizes.largeTitle};
   width: 200px;
   margin-bottom: 6vh;
   position: relative;

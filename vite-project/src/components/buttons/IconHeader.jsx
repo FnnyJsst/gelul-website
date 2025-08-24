@@ -1,4 +1,4 @@
-import colors from "../../constants/style";
+import { colors } from "../../constants/style";
 import styled from "styled-components";
 
 const IconButton = styled.button`

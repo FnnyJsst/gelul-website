@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import PropTypes from 'prop-types';
 const Card = styled.div`
-  width: 47vh;
-  height: 60vh;
+  width: 35vh;
+  height: 40vh;
   border-radius: 20px;
   display: flex;
   flex-direction: column;

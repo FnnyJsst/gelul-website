@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import colors from "../../constants/style";
+import { colors } from "../../constants/style";
 import PropTypes from 'prop-types';
 
 const Overlay = styled.div`
@@ -15,8 +15,8 @@ const Overlay = styled.div`
 `
 
 const Card = styled.div`
-  width: 40vh;
-  height: 50vh;
+  width: 32vh;
+  height: 40vh;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
