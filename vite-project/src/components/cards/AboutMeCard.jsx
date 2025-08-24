@@ -2,7 +2,7 @@ import styled from "styled-components";
 import PropTypes from 'prop-types';
 
 const Card = styled.div`
-  width: 38vh;
+  width: 45vh;
   height: 45vh;
   border-radius: 20px;
   display: flex;

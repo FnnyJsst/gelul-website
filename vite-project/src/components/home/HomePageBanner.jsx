@@ -7,7 +7,7 @@ const BannerDiv = styled.div`
   width: 100%;
   padding: 6vh;
   padding-left: 10vh;
-  background-image: url("${new URL('../../assets/images/test.jpg', import.meta.url).href}");
+  background-image: url("${new URL('../../assets/images/blue-plate.jpeg', import.meta.url).href}");
   background-size: cover;
   background-position: center;
   position: relative;
@@ -32,7 +32,7 @@ const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.4);
   z-index: 1;
 `;
 
