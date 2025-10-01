@@ -2,6 +2,7 @@ import styled from "styled-components";
 import HomePageBanner from "../components/home/HomePageBanner";
 import HomeCard from "../components/cards/HomeCard";
 import AboutMe from "./AboutMe";
+import ContactMe from "./ContactMe";
 import peinture from "../assets/images/peinture.jpg";
 import banc2 from "../assets/images/banc2.jpg";
 import pot from "../assets/images/pot.jpg"
@@ -12,8 +13,8 @@ const CardDiv = styled.div`
   align-item: center;
   gap: 20vh;
   justify-content: center;
-  padding-top: 6vh;
-  padding-bottom: 6vh;
+  padding-top: 4vh;
+  padding-bottom: 4vh;
   background-color: #f2eaea;
 `;
 
@@ -27,6 +28,7 @@ function HomePage () {
         <HomeCard cardTitle={"Peintures"} backgroundImage={peinture}/>
       </CardDiv>
       <AboutMe />
+      <ContactMe />
     </>
   )
 }

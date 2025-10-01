@@ -11,12 +11,12 @@ const IconButton = styled.button`
   justify-content: center;
 
   svg {
-    width: ${(props) => props.$iconWidth || "25px"};
-    height: ${(props) => props.$iconHeight || "25px"};
+    width: ${(props) => props.$iconWidth || "20px"};
+    height: ${(props) => props.$iconHeight || "20px"};
   }
 `;
 
-function IconHeader({ Icon, onClick, iconWidth = "25px", iconHeight = "25px" }) {
+function IconHeader({ Icon, onClick, iconWidth = "20px", iconHeight = "25px" }) {
   return (
     <IconButton onClick={onClick} $iconWidth={iconWidth} $iconHeight={iconHeight}>
       {Icon && <Icon />}

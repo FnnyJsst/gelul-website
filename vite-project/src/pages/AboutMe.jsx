@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import AboutMeCard from "../components/cards/AboutMeCard";
-import peinture from "../assets/images/peinture.jpg";
 import { fontSizes } from "../constants/style";
 
 const PageContainer = styled.div`
@@ -30,10 +29,10 @@ const Title = styled.h1`
 `;
 
 const Paragraph = styled.p`
-  font-size: ${fontSizes.medium};
+  font-size: ${fontSizes.large};
   font-weight: normal;
   margin-bottom: 5vh;
-  width: 75%;
+  width: 58%;
   line-height: 1.5;
 `;
 
@@ -46,7 +45,12 @@ function AboutMe () {
           </LeftSection>
           <RightSection>
               <Title>Présentation</Title>
-              <Paragraph>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</Paragraph>
+              <Paragraph>Dans mon atelier, chaque pièce raconte 
+                une histoire unique. Je crée des œuvres 
+                qui allient esthétique et fonctionnalité, 
+                en m'inspirant de la beauté qui nous entoure pour donner vie à des créations 
+                personnalisées qui enrichiront votre intérieur.
+              </Paragraph>
           </RightSection>
       </PageContainer>
     </>

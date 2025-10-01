@@ -16,7 +16,7 @@ const Overlay = styled.div`
 
 const Card = styled.div`
   width: 32vh;
-  height: 40vh;
+  height: 38vh;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -49,7 +49,7 @@ const CartTitle = styled.p`
   color: ${colors.white};
   z-index: 2;
   font-size: 25px;
-  font-weight: 500;
+  font-weight: 400;
   transition: all 0.3s ease;
   text-align: center;
   

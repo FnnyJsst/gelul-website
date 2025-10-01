@@ -8,6 +8,8 @@ const IconButton = styled.button`
   padding: 8px;
   transition: all 0.3s ease;
   border-radius: 25%;
+  width: 40px;
+  height: 40px;
   
   &:hover {
     background: rgba(0, 0, 0, 0.1);

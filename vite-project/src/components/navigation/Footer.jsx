@@ -4,10 +4,12 @@ import IconFooter from "../buttons/IconFooter";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 
 const FooterContainer = styled.div`
-  background-color: #efe9e9;
+  background-color: #3B3A3A;
+  color: #ffffff;
   display: flex;
   flex-direction: row;
   min-height: 20vh;
+  position: relative;
   `;
 
 const LeftContainer = styled.div`
@@ -20,10 +22,11 @@ const LeftContainer = styled.div`
 `;
 
 const RightContainer = styled.div`
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
-  justify-content: center;
   gap: 10px;
 `;
 

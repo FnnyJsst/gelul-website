@@ -12,12 +12,18 @@ const HeaderContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  background-color: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  height: 3rem;
 `;
 
 const LeftSection = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;`
+  align-items: center;
+  margin-left: 1rem;`
 
 const RightSection = styled.div`
   display: flex;
@@ -27,7 +33,7 @@ const RightSection = styled.div`
 `
 
 const Logo = styled.img`
-  height: 3.5rem;
+  height: 3rem;
 `;
 
 
@@ -44,8 +50,8 @@ function Header() {
         <LeftSection>
           <IconHeader 
             Icon={IoMenuOutline} 
-            iconWidth={'2.5rem'} 
-            iconHeight={'2.5rem'}
+            iconWidth={'2rem'} 
+            iconHeight={'2rem'}
             onClick={toggleSidebar}
           />
           <Logo src={logo} />

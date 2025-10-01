@@ -3,9 +3,9 @@ import { colors, fontSizes } from "../../constants/style";
 import LargeButton from "../buttons/LargeButton";
 import { BsArrowRight } from "react-icons/bs";
 const BannerDiv = styled.div`
-  height: 40vh;
+  height: 30vh;
   width: 100%;
-  padding: 6vh;
+  padding: 4vh;
   padding-left: 10vh;
   background-image: url("${new URL('../../assets/images/blue-plate.jpeg', import.meta.url).href}");
   background-size: cover;
@@ -21,7 +21,7 @@ const Title = styled.h1`
   font-weight: normal;
   font-size: ${fontSizes.largeTitle};
   width: 200px;
-  margin-bottom: 6vh;
+  margin-bottom: 4vh;
   position: relative;
   z-index: 2;
 `;
