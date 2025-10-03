@@ -9,8 +9,8 @@ const Button = styled.button `
   align-items: center;
   gap: 10px;
   font-weight: 500;
-  background: white;
-  color: #333;
+  background: ${(props) => props.$backgroundColor || "white"};
+  color: ${(props) => props.$color || "#333"};
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -53,11 +53,11 @@ const Button = styled.button `
   }
 `;
 
-function LargeButton ({Icon, onClick, iconWidth, iconHeight }) {
+function LargeButton ({Icon, onClick, iconWidth, iconHeight, text, backgroundColor = "ffffff", color = "#black" }) {
   return (
     <>
-      <Button onClick={onClick} $iconWidth={iconWidth} $iconHeight={iconHeight}>
-        Découvrez la collection
+      <Button onClick={onClick} $iconWidth={iconWidth} $iconHeight={iconHeight} $backgroundColor={backgroundColor} $color={color}>
+        {text}
         {Icon && <Icon />}
       </Button>
     </>

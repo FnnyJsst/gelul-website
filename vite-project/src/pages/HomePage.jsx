@@ -28,7 +28,7 @@ function HomePage () {
         <HomeCard cardTitle={"Peintures"} backgroundImage={peinture}/>
       </CardDiv>
       <AboutMe />
-      <ContactMe />
+      {/* <ContactMe /> */}
     </>
   )
 }

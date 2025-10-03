@@ -8,8 +8,11 @@ const IconButton = styled.button`
   padding: 8px;
   transition: all 0.3s ease;
   border-radius: 25%;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   
   &:hover {
     background: rgba(0, 0, 0, 0.1);
@@ -17,8 +20,8 @@ const IconButton = styled.button`
   }
   
   svg {
-    width: ${(props) => props.$iconWidth || "25px"};
-    height: ${(props) => props.$iconHeight || "25px"};
+    width: ${(props) => props.$iconWidth || "20px"};
+    height: ${(props) => props.$iconHeight || "20px"};
     color: #333;
     transition: color 0.3s ease;
   }
@@ -31,9 +34,9 @@ const IconButton = styled.button`
 function IconFooter({ Icon, onClick, iconWidth = "25px", iconHeight = "25px" }) {
   return (
     <>
-    <IconButton onClick={onClick} $iconWidth={iconWidth} $iconHeight={iconHeight}>
-      {Icon && <Icon />}
-    </IconButton>
+      <IconButton onClick={onClick} $iconWidth={iconWidth} $iconHeight={iconHeight}>
+        {Icon && <Icon />}
+      </IconButton>
     </>
   );
 }

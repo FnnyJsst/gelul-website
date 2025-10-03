@@ -2,6 +2,7 @@ import FooterCard from "../cards/FooterCard";
 import styled from "styled-components";
 import IconFooter from "../buttons/IconFooter";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
+import { fontSizes } from "../../constants/style";
 
 const FooterContainer = styled.div`
   background-color: #3B3A3A;
@@ -23,11 +24,23 @@ const LeftContainer = styled.div`
 
 const RightContainer = styled.div`
   position: absolute;
-  bottom: 10px;
-  right: 15px;
+  bottom: 15px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+`;
+
+const IconWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 15px;
+`;
+
+const Copyright = styled.p`
+  font-size: ${fontSizes.small};
+  font-weight: normal;
 `;
 
 
@@ -40,8 +53,11 @@ function Footer () {
         <FooterCard title="Contact" elements={["contact@gelul.com"]} />
       </LeftContainer>
       <RightContainer>
-        <IconFooter Icon={FaFacebook} />
-        <IconFooter Icon={FaInstagram} />
+        <IconWrapper>
+          <IconFooter Icon={FaFacebook} />
+          <IconFooter Icon={FaInstagram} />
+        </IconWrapper>
+        <Copyright>© Gelul 2025</Copyright>
       </RightContainer>
     </FooterContainer>
   )

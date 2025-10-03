@@ -47,7 +47,7 @@ function HomePageBanner() {
       <Overlay />
       <Title>Créateur d&apos;Originalités</Title>
       <ButtonWrapper>
-        <LargeButton Icon={BsArrowRight} />
+        <LargeButton Icon={BsArrowRight} text="Découvrez la collection" />
       </ButtonWrapper>
     </BannerDiv>
   );
