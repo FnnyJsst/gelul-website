@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { colors, fontSizes } from "../../constants/style";
 import LargeButton from "../buttons/LargeButton";
 import { BsArrowRight } from "react-icons/bs";
+
 const BannerDiv = styled.div`
   height: 30vh;
   width: 100%;
