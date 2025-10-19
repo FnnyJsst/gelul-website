@@ -4,6 +4,7 @@ import { colors } from '../../constants/style'
 import styled from 'styled-components'
 
 const BannerDiv = styled.div`
+  position: relative;
   height: 10vh;
   width: 100%;
   padding-left: 10vh;
