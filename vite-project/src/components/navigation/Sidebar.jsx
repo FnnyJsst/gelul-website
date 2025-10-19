@@ -2,6 +2,7 @@
 import { Sidebar as PrimeSidebar } from 'primereact/sidebar';
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components';
+import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo.png';
 
 const GlobalSidebarStyle = createGlobalStyle`
@@ -98,10 +99,10 @@ const Sidebar = ({ visible, onHide }) => {
                 }
             >
                 <SidebarContent>
-                    <a href="/"><div className="menu-item">Accueil</div></a>
-                    <a href="/boutique"><div className="menu-item">Boutique</div></a>
-                    <a href="/decorations"><div className="menu-item">Décoration</div></a>
-                    <a href="/peintures"><div className="menu-item">Peinture</div></a>
+                    <Link to="/"><div className="menu-item" onClick={onHide}>Accueil</div></Link>
+                    <Link to="/boutique"><div className="menu-item" onClick={onHide}>Boutique</div></Link>
+                    <Link to="/decorations"><div className="menu-item" onClick={onHide}>Décoration</div></Link>
+                    <Link to="/peintures"><div className="menu-item" onClick={onHide}>Peinture</div></Link>
                 </SidebarContent>
             </PrimeSidebar>
         </>

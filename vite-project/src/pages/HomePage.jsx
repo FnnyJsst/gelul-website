@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import HomePageBanner from "../components/home/HomePageBanner";
+import HomePageBanner from "../components/banners/HomePageBanner";
 import HomeCard from "../components/cards/HomeCard";
 import AboutMe from "./AboutMe";
 import ContactMe from "./ContactMe";

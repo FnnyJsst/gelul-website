@@ -1,5 +1,6 @@
 import Header from './components/navigation/Header';
 import HomePage from './pages/HomePage'
+import HomeBoutique from './pages/HomeBoutique'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { createGlobalStyle } from 'styled-components';
 import Footer from './components/navigation/Footer';
@@ -28,6 +29,7 @@ function App() {
           <Header />
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/boutique" element={<HomeBoutique />} />
           </Routes>
           <Footer />
         </Router>
