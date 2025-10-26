@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
 import { colors, fontSizes } from '../../constants/style'
 import { FaHeart } from 'react-icons/fa'
 
@@ -61,6 +62,33 @@ const AddToCartButton = styled.button`
   }
 `
 
+const FavoriteButton = styled.button`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+`
+
+const HeartIcon = styled(FaHeart)`
+  color: ${props => props.$isFavorite ? 'black' : colors.lightGray};
+  transition: color 0.3s ease;
+  font-size: 1.25rem;
+`
+
 const Title = styled.h1`
   font-size: ${fontSizes.medium};
   font-weight: 600;
@@ -74,16 +102,34 @@ const Price = styled.p`
   font-family: 'DM Mono', monospace;
 `
 
-function HomeBoutiqueCard({ image, title, price }) {
-  const handleAddToCart = () => {
+function HomeBoutiqueCard({ id, image, title, price }) {
+  const navigate = useNavigate()
+  const [isFavorite, setIsFavorite] = useState(false)
+
+  const handleAddToCart = (e) => {
+    e.stopPropagation()
     console.log('Ajout au panier:', title)
     // Ici vous pourrez implémenter la logique d'ajout au panier
   }
 
+  const handleToggleFavorite = (e) => {
+    e.stopPropagation()
+    setIsFavorite(!isFavorite)
+    console.log(isFavorite ? 'Retiré des favoris:' : 'Ajouté aux favoris:', title)
+    // Ici vous pourrez implémenter la logique d'ajout aux favoris
+  }
+
+  const handleClick = () => {
+    navigate(`/product/${id}`)
+  }
+
   return (
-    <Card>
-      <ImageContainer>
+    <Card onClick={handleClick}>
+      <ImageContainer >
         <Image src={image} alt={title || "Boutique"} />
+        <FavoriteButton onClick={handleToggleFavorite}>
+          <HeartIcon $isFavorite={isFavorite} />
+        </FavoriteButton>
         <AddToCartButton 
           className="add-to-cart-button"
           onClick={handleAddToCart}

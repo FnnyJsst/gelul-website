@@ -6,6 +6,7 @@ import { createGlobalStyle } from 'styled-components';
 import Footer from './components/navigation/Footer';
 import { PrimeReactProvider, PrimeReactContext } from 'primereact/api';
 import Sidebar from './components/navigation/Sidebar';
+import ProductPage from './pages/ProductPage';
 
 const GlobalStyle = createGlobalStyle `
   * {
@@ -31,6 +32,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/boutique" element={<HomeBoutique />} />
+            <Route path="/product/:id" element={<ProductPage />} />
           </Routes>
           <Footer />
         </Router>
