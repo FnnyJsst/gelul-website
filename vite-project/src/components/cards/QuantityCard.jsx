@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { fontSizes, colors } from '../../constants/style'
+import BlackButton from '../buttons/BlackButton'
+import FavouriteButton from '../buttons/FavouriteButton'
 
 const Container = styled.div`
   display: flex;
@@ -23,6 +25,7 @@ const InputContainer = styled.div`
   overflow: hidden;
   background-color: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  padding: 0.4rem;
 `
 
 const QuantityInput = styled.input`
@@ -105,6 +108,8 @@ function QuantityCard() {
                     />
                     <QuantityButton onClick={handleIncrease}>+</QuantityButton>
                 </InputContainer>
+                <BlackButton>Ajouter au panier</BlackButton>
+                <FavouriteButton />
             </ButtonContainer>
         </Container>
     )
