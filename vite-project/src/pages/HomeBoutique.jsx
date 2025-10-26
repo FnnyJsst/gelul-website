@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import BoutiqueBanner from '../components/banners/BoutiqueBanner'
 import Breadcrumb from '../components/navigation/Breadcrumb'
+import HomeBoutiqueRowCard from '../components/cards/HomeBoutiqueRowCard'
 
 
 function HomeBoutique() {
@@ -16,7 +17,7 @@ function HomeBoutique() {
     <>
       <BoutiqueBanner />
       <Breadcrumb onCategoryChange={handleCategoryChange} />
-      {/* Ici vous afficherez vos produits filtrés selon {selectedCategory} */}
+      <HomeBoutiqueRowCard />
     </>
   )
 }

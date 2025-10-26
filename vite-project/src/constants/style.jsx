@@ -1,5 +1,6 @@
 const colors = {
-  "white": "#FFFFFF"
+  "white": "#FFFFFF",
+  "gray": "#777474"
 }
 
 const fontSizes = {

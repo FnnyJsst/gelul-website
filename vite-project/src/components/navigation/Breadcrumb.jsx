@@ -25,7 +25,6 @@ const CategoryItem = styled.li`
   font-weight: ${props => props.$active ? '600' : 'normal'};
   transition: all 0.3s ease;
   position: relative;
-  padding-bottom: 0.5rem;
   
   &::after {
     content: '';
