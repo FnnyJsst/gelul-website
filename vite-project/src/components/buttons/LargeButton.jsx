@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Button = styled.button `
   padding: 1.5em;
-  border-radius: 10px;
+  border-radius: 15px;
   border: none;
   display: flex;
   flex-direction: row;
