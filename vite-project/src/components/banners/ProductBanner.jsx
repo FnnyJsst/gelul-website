@@ -38,7 +38,7 @@ const BreadcrumbLink = styled.button`
   background: none;
   border: none;
   color: ${colors.white};
-  font-size: ${fontSizes.medium};
+  font-size: ${fontSizes.large};
   text-decoration: none;
   transition: opacity 0.3s ease;
   cursor: pointer;
@@ -50,8 +50,7 @@ const BreadcrumbLink = styled.button`
 
 const Separator = styled.span`
   color: ${colors.white};
-  font-size: ${fontSizes.mediumTitle};
-  opacity: 0.8;
+  font-size: ${fontSizes.large};
 `;
 
 function ProductBanner() {
