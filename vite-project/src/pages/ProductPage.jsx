@@ -5,6 +5,7 @@ import QuantityCard from '../components/cards/QuantityCard'
 import ColorSelector from '../components/ColorSelector'
 import styled from 'styled-components'
 import { fontSizes, colors } from '../constants/style'
+import ShippingCard from '../components/cards/ShippingCard'
 
 const ContentContainer = styled.div`
   min-height: 50vh;
@@ -42,9 +43,10 @@ const ProductName = styled.h1`
 
 const ProductPrice = styled.h2`
   font-size: ${fontSizes.large};
-  font-weight: 400;
+  font-weight: 300;
   font-family: 'DM Mono', monospace;
   color: ${colors.gray};
+  letter-spacing: 0.05em;
 `;
 
 const ProductDescription = styled.p`
@@ -67,6 +69,7 @@ function ProductPage({name = "Nom du produit", price = "100€", description = "
                 <ProductDescription>{description}</ProductDescription>
                 <ColorSelector />
                 <QuantityCard />
+                <ShippingCard />
             </ProductInfo>
         </ProductDetails>
       </ContentContainer>

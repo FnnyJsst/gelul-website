@@ -20,13 +20,13 @@ const OptionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 56px;
+  min-width: 45px;
 `
 
 const SwatchButton = styled.button`
   position: relative;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   border: ${({ $isSelected }) =>
     $isSelected ? `2px solid black` : 'none'};

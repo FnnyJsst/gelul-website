@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import heartOutline from '../../assets/images/heart-outline.png'
 
 const Button = styled.button`
   width: 50px;
@@ -9,20 +10,46 @@ const Button = styled.button`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease;
   border: none;
-  
+
+  &:hover {
+    transform: scale(1.05);
+  }
 `
 
-const HeartIcon = styled.svg`
-  width: 24px;
-  height: 24px;
-  fill: ${props => props.$isFavorite ? 'black' : 'transparent'};
-  stroke: black;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transition: fill 0.3s ease;
+const IconWrapper = styled.span`
+  position: relative;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+`
+
+const HeartFill = styled.span`
+  position: absolute;
+  inset: 0;
+  background-color: ${({ $isFavorite }) => ($isFavorite ? '#000000' : 'transparent')};
+  mask-image: url(${heartOutline});
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-image: url(${heartOutline});
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  transition: background-color 0.3s ease;
+`
+
+const HeartIcon = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+  pointer-events: none;
+  filter: ${({ $isFavorite }) => ($isFavorite ? 'invert(10%) sepia(78%) saturate(4563%) hue-rotate(335deg) brightness(80%) contrast(104%)' : 'none')};
+  transition: filter 0.3s ease;
 `
 
 function FavouriteButton() {
@@ -33,13 +60,11 @@ function FavouriteButton() {
     };
 
     return (
-        <Button onClick={handleClick}>
-            <HeartIcon 
-                $isFavorite={isFavorite}
-                viewBox="0 0 24 24"
-            >
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-            </HeartIcon>
+        <Button onClick={handleClick} aria-pressed={isFavorite}>
+          <IconWrapper>
+            <HeartFill $isFavorite={isFavorite} />
+            <HeartIcon src={heartOutline} alt="Ajouter aux favoris" $isFavorite={isFavorite} />
+          </IconWrapper>
         </Button>
     )
 }
