@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import BoutiqueBanner from '../components/banners/BoutiqueBanner'
+import Banner from '../components/banners/Banner'
 import Breadcrumb from '../components/navigation/Breadcrumb'
 import HomeBoutiqueRowCard from '../components/cards/HomeBoutiqueRowCard'
 
@@ -15,7 +15,7 @@ function HomeBoutique() {
   
   return (
     <>
-      <BoutiqueBanner />
+      <Banner Title="Boutique" />
       <Breadcrumb onCategoryChange={handleCategoryChange} />
       <HomeBoutiqueRowCard />
     </>

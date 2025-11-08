@@ -26,7 +26,7 @@ const Overlay = styled.div`
   background: rgba(0, 0, 0, 0.4);
 `;
 
-const Title = styled.h1`
+const BannerTitle = styled.h1`
   color: ${colors.white};
   font-weight: normal;
   font-size: ${fontSizes.largeTitle};
@@ -34,14 +34,13 @@ const Title = styled.h1`
   z-index: 2;
 `;
 
-function BoutiqueBanner() {
+function Banner({ title }) {
   return (
     <BannerDiv>
-      <Title>Boutique</Title>
-
       <Overlay />
+      <BannerTitle>{title}</BannerTitle>
     </BannerDiv>
   )
 }
 
-export default BoutiqueBanner
+export default Banner
