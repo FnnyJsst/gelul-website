@@ -10,6 +10,7 @@ const Container = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   gap: 1rem;
+  margin-top: 0.5rem;
 `
 
 const QuantityTitle = styled.h1`

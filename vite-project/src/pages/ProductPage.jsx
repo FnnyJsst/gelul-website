@@ -2,6 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import ProductBanner from '../components/banners/ProductBanner'
 import QuantityCard from '../components/cards/QuantityCard'
+import ColorSelector from '../components/ColorSelector'
 import styled from 'styled-components'
 import { fontSizes, colors } from '../constants/style'
 
@@ -47,7 +48,7 @@ const ProductPrice = styled.h2`
 `;
 
 const ProductDescription = styled.p`
-  font-size: ${fontSizes.medium};
+  font-size: ${fontSizes.small};
   font-weight: 400;
 `;
 
@@ -64,6 +65,7 @@ function ProductPage({name = "Nom du produit", price = "100€", description = "
                 <ProductName>{name}</ProductName>
                 <ProductPrice>{price}</ProductPrice>
                 <ProductDescription>{description}</ProductDescription>
+                <ColorSelector />
                 <QuantityCard />
             </ProductInfo>
         </ProductDetails>
