@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import ProductBanner from '../components/banners/ProductBanner'
 import QuantityCard from '../components/cards/QuantityCard'
@@ -54,23 +54,36 @@ const ProductDescription = styled.p`
   font-weight: 400;
 `;
 
-function ProductPage({name = "Nom du produit", price = "100€", description = "Ceci est une description du produit", image = "src/assets/images/banc2.jpg"}) {
+function ProductPage({
+  name = 'Nom du produit',
+  price = '100€',
+  description = 'Ceci est une description du produit',
+  image = 'src/assets/images/banc2.jpg'
+}) {
   const { id } = useParams()
+  const [selectedColor, setSelectedColor] = useState(null)
+
+  const productId = useMemo(() => id ?? 'produit-demo', [id])
 
   return (
     <>
       <ProductBanner />
       <ContentContainer>
         <ProductDetails>
-            <ProductImage src={`${new URL('../assets/images/banc2.jpg', import.meta.url).href}`} />
-            <ProductInfo>
-                <ProductName>{name}</ProductName>
-                <ProductPrice>{price}</ProductPrice>
-                <ProductDescription>{description}</ProductDescription>
-                <ColorSelector />
-                <QuantityCard />
-                <ShippingCard />
-            </ProductInfo>
+          <ProductImage src={`${new URL('../assets/images/banc2.jpg', import.meta.url).href}`} alt={name} />
+          <ProductInfo>
+            <ProductName>{name}</ProductName>
+            <ProductPrice>{price}</ProductPrice>
+            <ProductDescription>{description}</ProductDescription>
+            <ColorSelector onChange={setSelectedColor} />
+            <QuantityCard
+              productId={productId}
+              name={name}
+              price={price}
+              selectedColor={selectedColor}
+            />
+            <ShippingCard />
+          </ProductInfo>
         </ProductDetails>
       </ContentContainer>
     </>

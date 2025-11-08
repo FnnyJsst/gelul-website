@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { fontSizes, colors } from '../../constants/style'
 import BlackButton from '../buttons/BlackButton'
 import FavouriteButton from '../buttons/FavouriteButton'
+import { CartContext } from '../../context/CartContext'
 
 const Container = styled.div`
   display: flex;
@@ -10,7 +12,7 @@ const Container = styled.div`
   align-items: flex-start;
   justify-content: flex-start;
   gap: 1rem;
-  margin-top: 0.5rem;
+  
 `
 
 const QuantityTitle = styled.h1`
@@ -74,46 +76,129 @@ const ButtonContainer = styled.div`
   gap: 1rem;
 `
 
-function QuantityCard() {
-    const [quantity, setQuantity] = useState(1);
+const CartFeedback = styled.p`
+  font-size: ${fontSizes.small};
+  color: ${colors.green};
+`
 
-    const handleDecrease = () => {
-        if (quantity > 1) {
-            setQuantity(quantity - 1);
-        }
-    };
+const PriceDetails = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+`
 
-    const handleIncrease = () => {
-        if (quantity < 100) {
-            setQuantity(quantity + 1);
-        }
-    };
+const MetaLine = styled.span`
+  font-size: ${fontSizes.small};
+  color: ${colors.gray};
+`
 
-    return (
-        <Container>
-            <QuantityTitle>Quantité</QuantityTitle>
-            <ButtonContainer>
-                <InputContainer>
-                    <QuantityButton onClick={handleDecrease}>-</QuantityButton>
-                    <QuantityInput 
-                        type="number" 
-                        min="1" 
-                        max="100" 
-                        value={quantity}
-                        onChange={(e) => {
-                            const value = parseInt(e.target.value);
-                            if (value >= 1 && value <= 100) {
-                                setQuantity(value);
-                            }
-                        }}
-                    />
-                    <QuantityButton onClick={handleIncrease}>+</QuantityButton>
-                </InputContainer>
-                <BlackButton>Ajouter au panier</BlackButton>
-                <FavouriteButton />
-            </ButtonContainer>
-        </Container>
-    )
+function QuantityCard({ productId, name, price, selectedColor }) {
+  const { addToCart } = useContext(CartContext)
+  const [quantity, setQuantity] = useState(1)
+  const [showFeedback, setShowFeedback] = useState(false)
+  const feedbackTimeoutRef = useRef(null)
+
+  const safeProductId = productId ?? 'produit-inconnu'
+
+  const variantKey = useMemo(() => {
+    const colorKey = selectedColor?.value ?? 'unicouleur'
+    return `${safeProductId}-${colorKey}`
+  }, [safeProductId, selectedColor])
+
+  const handleDecrease = () => {
+    setQuantity((current) => Math.max(1, current - 1))
+  }
+
+  const handleIncrease = () => {
+    setQuantity((current) => Math.min(100, current + 1))
+  }
+
+  const handleQuantityChange = (event) => {
+    const value = Number.parseInt(event.target.value, 10)
+    if (Number.isNaN(value)) {
+      return
+    }
+
+    const clampedValue = Math.min(100, Math.max(1, value))
+    setQuantity(clampedValue)
+  }
+
+  const handleAddToCart = () => {
+    addToCart({
+      id: safeProductId,
+      name,
+      price,
+      quantity,
+      color: selectedColor,
+      variantKey
+    })
+
+    setShowFeedback(true)
+    if (feedbackTimeoutRef.current) {
+      window.clearTimeout(feedbackTimeoutRef.current)
+    }
+
+    feedbackTimeoutRef.current = window.setTimeout(() => {
+      setShowFeedback(false)
+    }, 2000)
+  }
+
+  useEffect(() => {
+    return () => {
+      if (feedbackTimeoutRef.current) {
+        window.clearTimeout(feedbackTimeoutRef.current)
+      }
+    }
+  }, [])
+
+  return (
+    <Container>
+      <QuantityTitle>Quantité</QuantityTitle>
+      <PriceDetails>
+        <MetaLine>{`Prix unitaire : ${price}`}</MetaLine>
+        {selectedColor?.label && <MetaLine>{`Couleur sélectionnée : ${selectedColor.label}`}</MetaLine>}
+      </PriceDetails>
+      <ButtonContainer>
+        <InputContainer>
+          <QuantityButton onClick={handleDecrease} aria-label="Diminuer la quantité">
+            -
+          </QuantityButton>
+          <QuantityInput
+            type="number"
+            min="1"
+            max="100"
+            value={quantity}
+            onChange={handleQuantityChange}
+            aria-label="Quantité souhaitée"
+          />
+          <QuantityButton onClick={handleIncrease} aria-label="Augmenter la quantité">
+            +
+          </QuantityButton>
+        </InputContainer>
+        <BlackButton onClick={handleAddToCart}>Ajouter au panier</BlackButton>
+        <FavouriteButton />
+      </ButtonContainer>
+      {showFeedback && <CartFeedback>Produit ajouté au panier</CartFeedback>}
+    </Container>
+  )
+}
+
+QuantityCard.propTypes = {
+  productId: PropTypes.string,
+  name: PropTypes.string,
+  price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  selectedColor: PropTypes.shape({
+    label: PropTypes.string,
+    value: PropTypes.string,
+    hex: PropTypes.string
+  })
+}
+
+QuantityCard.defaultProps = {
+  productId: 'produit-inconnu',
+  name: 'Produit',
+  price: 'Prix non disponible',
+  selectedColor: null
 }
 
 export default QuantityCard

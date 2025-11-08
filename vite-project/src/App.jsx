@@ -7,6 +7,8 @@ import Footer from './components/navigation/Footer';
 import { PrimeReactProvider, PrimeReactContext } from 'primereact/api';
 import Sidebar from './components/navigation/Sidebar';
 import ProductPage from './pages/ProductPage';
+import { CartProvider } from './context/CartContext';
+import Cart from './pages/Cart';
 
 const GlobalStyle = createGlobalStyle `
   * {
@@ -23,20 +25,24 @@ const GlobalStyle = createGlobalStyle `
 
 function App() {
 
+
   return (
     <>
-      <PrimeReactProvider>
-        <GlobalStyle />
-        <Router>
-          <Header />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/boutique" element={<HomeBoutique />} />
-            <Route path="/product/:id" element={<ProductPage />} />
-          </Routes>
-          <Footer />
-        </Router>
-      </PrimeReactProvider>
+      <CartProvider>
+        <PrimeReactProvider>
+          <GlobalStyle />
+          <Router>
+            <Header />
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/boutique" element={<HomeBoutique />} />
+              <Route path="/product/:id" element={<ProductPage />} />
+              <Route path="/cart" element={<Cart />} />
+            </Routes>
+            <Footer />
+          </Router>
+        </PrimeReactProvider>
+      </CartProvider>
     </>
   )
 }

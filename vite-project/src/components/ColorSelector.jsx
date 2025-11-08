@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { colors as themeColors, fontSizes } from '../constants/style'
@@ -80,6 +80,12 @@ function ColorSelector({ options, label, defaultColor, onChange }) {
   if (!normalizedOptions.length) {
     return null
   }
+
+  useEffect(() => {
+    if (activeOption) {
+      onChange(activeOption)
+    }
+  }, [activeOption, onChange])
 
   return (
     <SelectorContainer>

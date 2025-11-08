@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { fontSizes } from '../../constants/style'
 
@@ -19,16 +20,28 @@ const Button = styled.button`
 
 
 
-const ButtonText = styled.p`
+const ButtonText = styled.span`
   font-size: ${fontSizes.small};
   font-weight: 400;
 `
-function BlackButton() {
-    return (
-        <Button>
-            <ButtonText>Ajouter au panier</ButtonText>
-        </Button>
-    )
+function BlackButton({ children, onClick, disabled }) {
+  return (
+    <Button onClick={onClick} disabled={disabled}>
+      <ButtonText>{children}</ButtonText>
+    </Button>
+  )
+}
+
+BlackButton.propTypes = {
+  children: PropTypes.node,
+  onClick: PropTypes.func,
+  disabled: PropTypes.bool
+}
+
+BlackButton.defaultProps = {
+  children: 'Ajouter au panier',
+  onClick: undefined,
+  disabled: false
 }
 
 export default BlackButton
