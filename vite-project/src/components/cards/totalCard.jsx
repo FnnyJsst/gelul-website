@@ -11,8 +11,9 @@ const CardContainer = styled.div`
   background-color:rgb(233, 231, 231);
   border-radius: 16px;
   padding: 2rem;
-  width: 320px;
+  width: 450px;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+  margin-right: 2rem;
 `
 
 const Header = styled.h2`
@@ -36,7 +37,10 @@ const Label = styled.span`
 
 const Amount = styled.span`
   font-size: ${fontSizes.medium};
-  font-weight: 600;
+  font-family: 'DM Mono', monospace;    
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: ${colors.gray};
 `
 
 const InfoBadge = styled.span`
@@ -77,7 +81,7 @@ const PaymentButton = styled(BlackButton)`
   width: 100%;
   justify-content: center;
   border-radius: 16px;
-
+  padding: 2.5rem;
   height: 4rem;
 
   &:hover {

@@ -6,6 +6,8 @@ import ColorSelector from '../components/ColorSelector'
 import styled from 'styled-components'
 import { fontSizes, colors } from '../constants/style'
 import ShippingCard from '../components/cards/ShippingCard'
+import defaultImage from '../assets/images/banc2.jpg'
+
 
 const ContentContainer = styled.div`
   min-height: 50vh;
@@ -58,7 +60,7 @@ function ProductPage({
   name = 'Nom du produit',
   price = '100€',
   description = 'Ceci est une description du produit',
-  image = 'src/assets/images/banc2.jpg'
+  image = defaultImage
 }) {
   const { id } = useParams()
   const [selectedColor, setSelectedColor] = useState(null)
@@ -70,7 +72,7 @@ function ProductPage({
       <ProductBanner />
       <ContentContainer>
         <ProductDetails>
-          <ProductImage src={`${new URL('../assets/images/banc2.jpg', import.meta.url).href}`} alt={name} />
+          <ProductImage src={image} alt={name} />
           <ProductInfo>
             <ProductName>{name}</ProductName>
             <ProductPrice>{price}</ProductPrice>
@@ -81,6 +83,7 @@ function ProductPage({
               name={name}
               price={price}
               selectedColor={selectedColor}
+              image={image}
             />
             <ShippingCard />
           </ProductInfo>

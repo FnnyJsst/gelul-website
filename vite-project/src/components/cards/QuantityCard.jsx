@@ -92,7 +92,7 @@ const MetaLine = styled.span`
   color: ${colors.gray};
 `
 
-function QuantityCard({ productId, name, price, selectedColor }) {
+function QuantityCard({ productId, name, price, selectedColor, image }) {
   const { addToCart } = useContext(CartContext)
   const [quantity, setQuantity] = useState(1)
   const [showFeedback, setShowFeedback] = useState(false)
@@ -126,6 +126,7 @@ function QuantityCard({ productId, name, price, selectedColor }) {
   const handleAddToCart = () => {
     addToCart({
       id: safeProductId,
+      image,
       name,
       price,
       quantity,
@@ -191,14 +192,16 @@ QuantityCard.propTypes = {
     label: PropTypes.string,
     value: PropTypes.string,
     hex: PropTypes.string
-  })
+  }),
+  image: PropTypes.string
 }
 
 QuantityCard.defaultProps = {
   productId: 'produit-inconnu',
   name: 'Produit',
   price: 'Prix non disponible',
-  selectedColor: null
+  selectedColor: null,
+  image: null
 }
 
 export default QuantityCard

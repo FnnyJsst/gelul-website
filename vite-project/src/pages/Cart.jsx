@@ -9,7 +9,7 @@ const CartItemsContainer = styled.div`
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding: 2rem;
+    padding: 4rem;
 `
 
 function Cart() {
