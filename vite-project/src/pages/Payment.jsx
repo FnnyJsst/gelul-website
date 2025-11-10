@@ -2,6 +2,7 @@ import React from 'react'
 import Banner from '../components/banners/Banner'
 import DeliveryCard from '../components/cards/DeliveryCard'
 import SummaryCard from '../components/cards/SummaryCard'
+import PaymentCard from '../components/cards/PaymentCard'
 import styled from 'styled-components'
 
 
@@ -10,6 +11,18 @@ const PageWrapper = styled.main`
   padding: 0 0 3rem;
   display: flex;
   flex-direction: column;
+`
+
+const LeftColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+`
+
+const RightColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 `
 
 const CardContainer = styled.div`
@@ -25,8 +38,13 @@ function Payment() {
     <PageWrapper>
       <Banner title="Paiement" />
       <CardContainer>
-        <DeliveryCard />
-        <SummaryCard />
+        <LeftColumn>
+          <DeliveryCard />
+          <PaymentCard />
+        </LeftColumn>
+          <RightColumn>
+           <SummaryCard />
+        </RightColumn>
       </CardContainer>
     </PageWrapper>
   )

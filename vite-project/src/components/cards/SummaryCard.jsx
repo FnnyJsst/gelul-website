@@ -10,7 +10,7 @@ const CardContainer = styled.div`
   background-color:rgb(233, 231, 231);
   border-radius: 16px;
   padding: 2rem;
-  width: 450px;
+  width: 575px;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
   margin-right: 2rem;
 `
@@ -30,12 +30,6 @@ const ItemList = styled.ul`
 `
 
 const ItemRow = styled.li`
-  display: flex;
-  flex-direction: row;
-  gap: 1.5rem;
-`
-
-const ItemContainer = styled.div`
   display: flex;
   flex-direction: row;
   gap: 1.5rem;
@@ -123,7 +117,6 @@ const DeliveryFeeAmount = styled.span`
 const TotalTitle = styled.span`
   font-size: ${fontSizes.medium};
   font-weight: 500;
-  font-family: 'DM Mono', monospace;
   letter-spacing: 0.05em;
 `
 
@@ -136,7 +129,6 @@ const TotalAmount = styled.span`
 `
 function SummaryCard() {
     const { cartItems, cartTotal } = useContext(CartContext)
-    console.log(cartTotal)
     return (
         <CardContainer>
             <CardTitle>Résumé</CardTitle>
