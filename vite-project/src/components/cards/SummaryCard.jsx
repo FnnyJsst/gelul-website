@@ -125,7 +125,6 @@ const TotalAmount = styled.span`
   font-weight: 500;
   font-family: 'DM Mono', monospace;
   letter-spacing: 0.05em;
-
 `
 
 const PaymentButton = styled.button`

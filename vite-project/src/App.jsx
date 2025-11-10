@@ -9,6 +9,7 @@ import Payment from './pages/Payment';
 import ProductPage from './pages/ProductPage';
 import { CartProvider } from './context/CartContext';
 import Cart from './pages/Cart';
+import ContactMe from './pages/ContactMe';
 
 const GlobalStyle = createGlobalStyle `
   * {
@@ -39,6 +40,7 @@ function App() {
               <Route path="/product/:id" element={<ProductPage />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/payment" element={<Payment />} />
+              <Route path="/contact" element={<ContactMe />} />
             </Routes>
             <Footer />
           </Router>
