@@ -1,6 +1,7 @@
 import React from 'react'
 import Banner from '../components/banners/Banner'
 import DeliveryCard from '../components/cards/DeliveryCard'
+import SummaryCard from '../components/cards/SummaryCard'
 import styled from 'styled-components'
 
 
@@ -25,6 +26,7 @@ function Payment() {
       <Banner title="Paiement" />
       <CardContainer>
         <DeliveryCard />
+        <SummaryCard />
       </CardContainer>
     </PageWrapper>
   )
