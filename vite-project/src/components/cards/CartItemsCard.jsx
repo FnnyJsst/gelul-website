@@ -4,6 +4,12 @@ import { fontSizes, colors } from '../../constants/style'
 import { CartContext } from '../../context/CartContext'
 import RedBin from '../../assets/images/bin-red.png'
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`
+
 const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -83,8 +89,8 @@ const ItemPrice = styled.span`
 `
 
 const QuantityInput = styled.input`
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border: none;
   text-align: center;
   font-size: ${fontSizes.medium};
@@ -133,6 +139,18 @@ const InputContainer = styled.div`
   padding: 0.1rem;
   height: 30px;
   width: 60px;
+`
+
+const ReservationText = styled.span`
+  font-size: ${fontSizes.small};
+  color: ${colors.gray};
+  margin-left: 1rem;
+`
+
+const PaymentText = styled.span`
+  font-size: ${fontSizes.small};
+  color: ${colors.gray};
+  margin-left: 1rem;
 `
 
 function CartItemsCard() {
@@ -186,6 +204,8 @@ function CartItemsCard() {
   
   
   return (
+    <Container>
+    <ReservationText>Les articles ajoutés seront réservés pendant 1 heure</ReservationText>
     <CardContainer>
       <ItemsList>
         {cartItems.map((item) => (
@@ -227,6 +247,8 @@ function CartItemsCard() {
         ))}
       </ItemsList>
     </CardContainer>
+    <PaymentText>Nous acceptons :</PaymentText>
+    </Container>
   )
 }
 

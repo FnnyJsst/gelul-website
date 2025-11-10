@@ -101,8 +101,8 @@ const Sidebar = ({ visible, onHide }) => {
                 <SidebarContent>
                     <Link to="/"><div className="menu-item" onClick={onHide}>Accueil</div></Link>
                     <Link to="/boutique"><div className="menu-item" onClick={onHide}>Boutique</div></Link>
-                    <Link to="/decorations"><div className="menu-item" onClick={onHide}>Décoration</div></Link>
-                    <Link to="/peintures"><div className="menu-item" onClick={onHide}>Peinture</div></Link>
+                    <Link to="/events"><div className="menu-item" onClick={onHide}>Évènements</div></Link>
+                    <Link to="/contact"><div className="menu-item" onClick={onHide}>Contact</div></Link>
                 </SidebarContent>
             </PrimeSidebar>
         </>

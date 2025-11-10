@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { fontSizes, colors } from '../../constants/style'
-import BlackButton from '../buttons/BlackButton'
+import { Link } from 'react-router-dom'
 
 const CardContainer = styled.div`
   display: flex;
@@ -77,18 +77,34 @@ const Select = styled.select`
   }
 `
 
-const PaymentButton = styled(BlackButton)`
+const PaymentButton = styled.button`
   width: 100%;
   justify-content: center;
   border-radius: 16px;
-  padding: 2.5rem;
-  height: 4rem;
+  padding: 1.8rem;
+  color: white;
+  background-color: black;
+  border: none;
+  border-radius: 16px;
+  font-size: ${fontSizes.small};
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   }
 `
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: white;
+`
+
 
 function TotalCard({ subtotal, currency, deliveryOptions, defaultDelivery, onDeliveryChange, onCheckout }) {
   const [selectedDelivery, setSelectedDelivery] = useState(defaultDelivery)
@@ -123,7 +139,9 @@ function TotalCard({ subtotal, currency, deliveryOptions, defaultDelivery, onDel
           </option>
         ))}
       </Select>
-      <PaymentButton onClick={() => onCheckout({ deliveryMethod: selectedDelivery })}>Paiement</PaymentButton>
+      <PaymentButton onClick={() => onClick()}>
+        <StyledLink to="/payment">Paiement</StyledLink>
+      </PaymentButton>
     </CardContainer>
   )
 }
