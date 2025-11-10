@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { createGlobalStyle } from 'styled-components';
 import Footer from './components/navigation/Footer';
 import { PrimeReactProvider, PrimeReactContext } from 'primereact/api';
-import Sidebar from './components/navigation/Sidebar';
+import Payment from './pages/Payment';
 import ProductPage from './pages/ProductPage';
 import { CartProvider } from './context/CartContext';
 import Cart from './pages/Cart';
@@ -38,6 +38,7 @@ function App() {
               <Route path="/boutique" element={<HomeBoutique />} />
               <Route path="/product/:id" element={<ProductPage />} />
               <Route path="/cart" element={<Cart />} />
+              <Route path="/payment" element={<Payment />} />
             </Routes>
             <Footer />
           </Router>

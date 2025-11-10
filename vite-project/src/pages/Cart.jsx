@@ -20,11 +20,6 @@ const CartItemsContainer = styled.div`
   gap: 2rem;
   padding: 4rem;
 `
-
-const Meta = styled.span`
-  font-size: ${fontSizes.small};
-  color: ${colors.gray};
-`
 function Cart() {
     return (
         <PageWrapper>
