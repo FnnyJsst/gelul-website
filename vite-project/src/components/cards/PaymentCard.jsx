@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { fontSizes, colors } from '../../constants/style'
 
@@ -12,6 +13,9 @@ const PaymentCardContainer = styled.div`
   min-width: 680px;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
   margin-left: 1rem;
+  opacity: ${({ $disabled }) => ($disabled ? 0.45 : 1)};
+  pointer-events: ${({ $disabled }) => ($disabled ? 'none' : 'auto')};
+  transition: opacity 0.2s ease;
 `
 
 const PaymentCardTitle = styled.h1`
@@ -71,9 +75,9 @@ const PaymentOptionContent = styled.div`
   gap: 0.5rem;
 `
 
-function PaymentCard() {
+function PaymentCard({ disabled }) {
     return (
-        <PaymentCardContainer>
+        <PaymentCardContainer $disabled={disabled} aria-disabled={disabled}>
             <PaymentCardTitle>Paiement</PaymentCardTitle>
             <PaymentOptions>
                 <PaymentOptionList>
@@ -102,6 +106,14 @@ function PaymentCard() {
             </PaymentOptions>
         </PaymentCardContainer>
     )
+}
+
+PaymentCard.propTypes = {
+    disabled: PropTypes.bool
+}
+
+PaymentCard.defaultProps = {
+    disabled: false
 }
 
 export default PaymentCard

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { fontSizes, colors } from '../../constants/style'
 import homedelivery from '../../assets/images/home-outline.png'
@@ -35,6 +36,12 @@ const DeliveryOptionItem = styled.li`
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
   cursor: pointer;
   align-items: center;
+  border: 2px solid ${({ $selected }) => ($selected ? colors.black : 'transparent')};
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    border-color: ${colors.gray};
+  }
 `
 const DeliveryOptionRadio = styled.input`
   width: 20px;
@@ -76,41 +83,75 @@ const CardContainer = styled.div`
 `
 
 
+function DeliveryCard({ options, selectedDelivery, onSelectDelivery }) {
+  const iconByValue = {
+    'colissimo-standard': homedelivery,
+    'point-relais': relais,
+    atelier
+  }
 
-function DeliveryCard() {
+  const handleSelect = (value) => {
+    if (value !== selectedDelivery) {
+      onSelectDelivery?.(value)
+    }
+  }
+
   return (
     <CardContainer>
         <DeliveryTitle>Mode de livraison</DeliveryTitle>
         <DeliveryOptions>
             <DeliveryOptionList>
-                <DeliveryOptionItem>
-                    <DeliveryOptionRadio />
-                    <DeliveryIcon src={homedelivery} />
-                    <DeliveryOptionContent>
-                        <DeliveryOptionTitle>Livraison standard Colissimo</DeliveryOptionTitle>
-                        <DeliveryOptionDescription>3-5 jours ouvrés</DeliveryOptionDescription>
-                    </DeliveryOptionContent>
-                </DeliveryOptionItem>
-                <DeliveryOptionItem>
-                    <DeliveryOptionRadio />
-                    <DeliveryIcon src={relais} />
-                    <DeliveryOptionContent>
-                        <DeliveryOptionTitle>Livraison en point relais</DeliveryOptionTitle>
-                        <DeliveryOptionDescription>3-5 jours ouvrés</DeliveryOptionDescription>
-                    </DeliveryOptionContent>
-                </DeliveryOptionItem>
-                <DeliveryOptionItem>
-                    <DeliveryOptionRadio />
-                    <DeliveryIcon src={atelier} />
-                    <DeliveryOptionContent>
-                        <DeliveryOptionTitle>Retrait à l'atelier</DeliveryOptionTitle>
-                        <DeliveryOptionDescription>1-2 jours ouvrés</DeliveryOptionDescription>
-                    </DeliveryOptionContent>
-                </DeliveryOptionItem>
+                {options.map(({ value, label, description, icon }) => {
+                  const isSelected = value === selectedDelivery
+                  const resolvedIcon = icon ?? iconByValue[value]
+
+                  return (
+                    <DeliveryOptionItem
+                      key={value}
+                      $selected={isSelected}
+                      onClick={() => handleSelect(value)}
+                    >
+                      <DeliveryOptionRadio
+                        type="radio"
+                        name="delivery-option"
+                        value={value}
+                        checked={isSelected}
+                        onChange={() => handleSelect(value)}
+                        aria-label={label}
+                      />
+                      {resolvedIcon && <DeliveryIcon src={resolvedIcon} alt="" aria-hidden="true" />}
+                      <DeliveryOptionContent>
+                        <DeliveryOptionTitle>{label}</DeliveryOptionTitle>
+                        {description && (
+                          <DeliveryOptionDescription>{description}</DeliveryOptionDescription>
+                        )}
+                      </DeliveryOptionContent>
+                    </DeliveryOptionItem>
+                  )
+                })}
             </DeliveryOptionList>
         </DeliveryOptions>
     </CardContainer>
   )
+}
+
+DeliveryCard.propTypes = {
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+      description: PropTypes.string,
+      icon: PropTypes.string
+    })
+  ),
+  selectedDelivery: PropTypes.string,
+  onSelectDelivery: PropTypes.func
+}
+
+DeliveryCard.defaultProps = {
+  options: [],
+  selectedDelivery: null,
+  onSelectDelivery: undefined
 }
 
 export default DeliveryCard

@@ -127,6 +127,25 @@ const TotalAmount = styled.span`
   letter-spacing: 0.05em;
 
 `
+
+const PaymentButton = styled.button`
+  width: 100%;
+  justify-content: center;
+  border-radius: 16px;
+  padding: 1.8rem;
+  color: white;
+  background-color: black;
+  border: none;
+  border-radius: 16px;
+  font-size: ${fontSizes.small};
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
 function SummaryCard() {
     const { cartItems, cartTotal } = useContext(CartContext)
     return (
@@ -159,6 +178,7 @@ function SummaryCard() {
                     <TotalAmount>{cartTotal.toFixed(2)}€</TotalAmount>
                 </TotalRow>
             </SubtotalCard>
+            <PaymentButton>Paiement</PaymentButton>
         </CardContainer>
     )
 }
