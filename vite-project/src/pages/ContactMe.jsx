@@ -2,13 +2,19 @@ import React, { useEffect, useRef, useState } from 'react'
 import Banner from '../components/banners/Banner'
 import styled, { css } from 'styled-components'
 import { colors, fontSizes } from '../constants/style'
+import bluePlate from '../assets/images/blue-plate.jpeg'
 
 const PageContainer = styled.main`
-  // min-height: calc(80vh - 160px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #efe9e9;
+  padding: 4rem;
+  background-image: url(${bluePlate});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgba(0, 0, 0, 0.85);
+  background-blend-mode: lighten;
 `
 
 const Content = styled.section`
@@ -18,6 +24,8 @@ const Content = styled.section`
   display: flex;
   flex-direction: column;
   gap: 1.8rem;
+  background-color:rgba(226, 217, 217, 0.9);
+  border-radius: 16px;
 
   @media (max-width: 768px) {
     padding: 3.5rem 1.5rem 4rem;
@@ -25,7 +33,7 @@ const Content = styled.section`
 `
 
 const Title = styled.h1`
-  font-size: ${fontSizes.largeTitle};
+  font-size: ${fontSizes.mediumTitle};
   font-weight: 500;
   text-align: left;
 `
@@ -33,13 +41,13 @@ const Title = styled.h1`
 const Paragraph = styled.p`
   font-size: ${fontSizes.large};
   max-width: 640px;
-  color: ${colors.gray};
+  margin-top: -15px;
 `
 
 const ContactForm = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 1.75rem;
+  gap: 1.7rem;
 `
 
 const FormRow = styled.div`
@@ -67,8 +75,8 @@ const Label = styled.label`
 const inputBaseStyles = css`
   width: 100%;
   padding: 0.9rem 1.1rem;
-  border-radius: 12px;
-  border: 1px solid ${colors.lightGray};
+  border-radius: 14px;
+  border: 2px solid ${colors.lightGray};
   background-color: ${colors.white};
   font-size: ${fontSizes.medium};
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
@@ -76,7 +84,6 @@ const inputBaseStyles = css`
   &:focus {
     outline: none;
     border-color: ${colors.black};
-    box-shadow: 0 0 0 3px rgba(31, 31, 31, 0.12);
   }
 
   &::placeholder {
@@ -90,7 +97,7 @@ const Input = styled.input`
 
 const Textarea = styled.textarea`
   ${inputBaseStyles};
-  min-height: 180px;
+  min-height: 140px;
   resize: vertical;
 `
 
@@ -116,7 +123,7 @@ const FormFooter = styled.div`
 
 const Hint = styled.span`
   font-size: ${fontSizes.small};
-  color: ${colors.gray};
+  color: ${colors.gray};  A
 `
 
 const SubmitButton = styled.button`
@@ -245,7 +252,6 @@ function ContactMe() {
 
   return (
     <>
-      <Banner title="Contact" />
       <PageContainer>
         <Content>
           <Title>Une idée de projet&nbsp;? Une question&nbsp;? 😊</Title>

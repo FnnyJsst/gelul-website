@@ -10,6 +10,7 @@ import ProductPage from './pages/ProductPage';
 import { CartProvider } from './context/CartContext';
 import Cart from './pages/Cart';
 import ContactMe from './pages/ContactMe';
+import ProfilePage from './pages/ProfilePage';
 
 const GlobalStyle = createGlobalStyle `
   * {
@@ -41,6 +42,7 @@ function App() {
               <Route path="/cart" element={<Cart />} />
               <Route path="/payment" element={<Payment />} />
               <Route path="/contact" element={<ContactMe />} />
+              <Route path="/profile" element={<ProfilePage />} />
             </Routes>
             <Footer />
           </Router>

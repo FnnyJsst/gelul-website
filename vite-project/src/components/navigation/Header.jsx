@@ -8,6 +8,7 @@ import InputSearch from "../InputSearch";
 import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
 import Cart from "../../pages/Cart";
+import ProfilePage from "../../pages/ProfilePage";
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -60,7 +61,9 @@ function Header() {
         </LeftSection>
       <RightSection>
         <InputSearch />
-        <IconHeader Icon={IoPersonOutline} />
+        <Link to="/profile">
+          <IconHeader Icon={IoPersonOutline} />
+        </Link>
         <IconHeader Icon={IoHeartOutline} />
         <Link to="/cart">
           <IconHeader Icon={PiBasket} />
