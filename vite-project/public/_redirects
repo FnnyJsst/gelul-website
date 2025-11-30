@@ -1,0 +1,6 @@
+# Configuration Netlify pour React Router
+# Ce fichier sera automatiquement copié dans le dossier dist lors du build
+
+# Rediriger toutes les routes vers index.html pour le routage React
+/*    /index.html   200
+

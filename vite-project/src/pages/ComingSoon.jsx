@@ -59,17 +59,6 @@ const Title = styled.h1`
   }
 `;
 
-const Subtitle = styled.h2`
-  font-size: ${fontSizes.largeTitle};
-  font-weight: 400;
-  color: ${colors.gray};
-  margin-bottom: 2rem;
-  animation: fadeInUp 1s ease-out 0.4s both;
-  
-  @media (max-width: 768px) {
-    font-size: ${fontSizes.mediumTitle};
-  }
-`;
 
 const Message = styled.p`
   font-size: ${fontSizes.large};
@@ -112,11 +101,39 @@ const ConstructionIcon = styled.div`
   }
 `;
 
+const InstagramLink = styled.a`
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: ${fontSizes.large};
+  color: ${colors.black};
+  text-decoration: none;
+  margin: 2rem 0;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid ${colors.black};
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  animation: fadeInUp 1s ease-out 0.7s both;
+  
+  &:hover {
+    background-color: ${colors.black};
+    color: ${colors.white};
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  @media (max-width: 768px) {
+    font-size: ${fontSizes.medium};
+    padding: 0.6rem 1.2rem;
+  }
+`;
+
+
 const FooterText = styled.p`
   font-size: ${fontSizes.medium};
   color: ${colors.gray};
   margin-top: auto;
-  padding-top: 3rem;
+  padding-top: 2rem;
   animation: fadeIn 1s ease-out 0.8s both;
   
   @keyframes fadeIn {
@@ -139,12 +156,14 @@ function ComingSoon() {
       <ConstructionIcon />
       
       <Title>Site en construction</Title>
-      <Subtitle>Arrive bientôt</Subtitle>
       
-      <Message>
-        Nous travaillons dur pour vous offrir une expérience exceptionnelle. 
-        Notre site sera bientôt disponible avec tous nos produits et services.
-      </Message>
+      <InstagramLink 
+        href="https://www.instagram.com/gelul.official/?hl=fr" 
+        target="_blank" 
+        rel="noopener noreferrer"
+      >
+        Suivez-moi sur Instagram
+      </InstagramLink>
       
       <FooterText>
         Revenez bientôt pour découvrir ce qui arrive !
