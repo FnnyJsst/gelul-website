@@ -8,23 +8,29 @@ const PageContainer = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 4rem;
+  padding: 2rem;
+  background-color: #f2eaea;
+
+`
+
+const CardWrapper = styled.div`
+  width: 100%;
+  max-width: 960px;
+  padding: 20px;
   background-image: url(${bluePlate});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: rgba(0, 0, 0, 0.85);
-  background-blend-mode: lighten;
+  border-radius: 18px;
 `
 
 const Content = styled.section`
   width: 100%;
-  max-width: 960px;
   padding: 2rem;
   display: flex;
   flex-direction: column;
   gap: 1.8rem;
-  background-color:rgba(226, 217, 217, 0.9);
+  background-color:rgba(226, 217, 217, 0.96);
   border-radius: 16px;
 
   @media (max-width: 768px) {
@@ -253,9 +259,10 @@ function ContactMe() {
   return (
     <>
       <PageContainer>
-        <Content>
-          <Title>Une idée de projet&nbsp;? Une question&nbsp;? 😊</Title>
-          <Paragraph>Contactez-moi via le formulaire ci-dessous et je vous répondrai rapidement.</Paragraph>
+        <CardWrapper>
+          <Content>
+            <Title>Une idée de projet&nbsp;? Une question&nbsp;? 😊</Title>
+            <Paragraph>Contactez-moi via le formulaire ci-dessous et je vous répondrai rapidement.</Paragraph>
 
           <ContactForm noValidate onSubmit={handleSubmit}>
             {status === 'success' && (
@@ -357,7 +364,8 @@ function ContactMe() {
               </SubmitButton>
             </FormFooter>
           </ContactForm>
-        </Content>
+          </Content>
+        </CardWrapper>
       </PageContainer>
     </>
   )

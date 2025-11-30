@@ -13,8 +13,8 @@ const CardDiv = styled.div`
   align-item: center;
   gap: 20vh;
   justify-content: center;
-  padding-top: 4vh;
-  padding-bottom: 4vh;
+  padding-top: 7vh;
+  padding-bottom: 7vh;
   background-color: #f2eaea;
 `;
 

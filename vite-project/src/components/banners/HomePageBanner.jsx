@@ -4,7 +4,7 @@ import LargeButton from "../buttons/LargeButton";
 import { BsArrowRight } from "react-icons/bs";
 
 const BannerDiv = styled.div`
-  height: 30vh;
+  height: 35vh;
   width: 100%;
   padding: 4vh;
   padding-left: 10vh;
