@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import heartOutline from '../../assets/images/heart-outline.png'
+import heartOutline from '../../assets/images/icons/heart-outline.png'
 
 const Button = styled.button`
   width: 50px;

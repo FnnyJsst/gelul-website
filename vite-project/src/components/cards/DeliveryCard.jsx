@@ -2,9 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { fontSizes, colors } from '../../constants/style'
-import homedelivery from '../../assets/images/home-outline.png'
-import relais from '../../assets/images/truck-outline.png'
-import atelier from '../../assets/images/shopping-bag-outline.png'
+import homedelivery from '../../assets/images/icons/home-outline.png'
+import relais from '../../assets/images/icons/truck-outline.png'
+import atelier from '../../assets/images/icons/shopping-bag-outline.png'
 
 const DeliveryTitle = styled.h1`
   font-size: ${fontSizes.medium};

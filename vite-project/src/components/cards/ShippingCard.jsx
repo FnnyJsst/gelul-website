@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { fontSizes, colors } from '../../constants/style'
-import truckOutline from '../../assets/images/truck-outline.png'
+import truckOutline from '../../assets/images/icons/truck-outline.png'
 const ShippingContainer = styled.div`
   margin-top: 1rem;
 `
