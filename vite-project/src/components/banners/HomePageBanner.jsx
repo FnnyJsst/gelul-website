@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { colors, fontSizes } from "../../constants/style";
 import LargeButton from "../buttons/LargeButton";
 import { BsArrowRight } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 const BannerDiv = styled.div`
   height: 35vh;
@@ -43,12 +44,14 @@ const ButtonWrapper = styled.div`
 `;
 
 function HomePageBanner() {
+  const navigate = useNavigate()
+
   return (
     <BannerDiv>
       <Overlay />
       <Title>Créateur d&apos;Originalités</Title>
       <ButtonWrapper>
-        <LargeButton Icon={BsArrowRight} text="Découvrez la collection" />
+        <LargeButton Icon={BsArrowRight} text="Découvrez la collection" href="/boutique" onClick={() => navigate('/boutique')} />
       </ButtonWrapper>
     </BannerDiv>
   );

@@ -21,13 +21,29 @@ const ActionCardContainer = styled.div`
   width: 100%;
 `
 
-function ActionCard() {
+function ActionCard({ onSectionChange }) {
     return (
         <ActionCardContainer>   
-            <ActionCardButton icon={infoOutline} text="Informations personnelles" />
-            <ActionCardButton icon={shoppingBagOutline} text="Mes commandes" />
-            <ActionCardButton icon={heartOutline} text="Mes favoris" />
-            <ActionCardButton icon={paymentOutline} text="Mes paiements" />
+            <ActionCardButton 
+                icon={infoOutline} 
+                text="Informations personnelles" 
+                onClick={() => onSectionChange && onSectionChange('personal-info')}
+            />
+            <ActionCardButton 
+                icon={shoppingBagOutline} 
+                text="Mes commandes" 
+                onClick={() => onSectionChange && onSectionChange('orders')}
+            />
+            <ActionCardButton 
+                icon={heartOutline} 
+                text="Mes favoris" 
+                onClick={() => onSectionChange && onSectionChange('wishlist')}
+            />
+            <ActionCardButton 
+                icon={paymentOutline} 
+                text="Mes paiements" 
+                onClick={() => onSectionChange && onSectionChange('payments')}
+            />
         </ActionCardContainer>
     )
 }

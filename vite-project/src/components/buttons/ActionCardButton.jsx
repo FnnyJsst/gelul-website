@@ -36,10 +36,10 @@ const ActionCardButtonText = styled.p`
   font-size: ${fontSizes.small};
   font-weight: 400;
 `
-function ActionCardButton({ icon, text }) {
+function ActionCardButton({ icon, text, onClick }) {
     return (
         <>
-            <ActionCardButtonContainer>
+            <ActionCardButtonContainer onClick={onClick}>
                 <ActionCardIcon>
                     {icon && <ActionCardIconImage src={icon} alt={text || ''} />}
                 </ActionCardIcon>

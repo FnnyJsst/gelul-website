@@ -64,7 +64,7 @@ const getInitials = (name) => {
     return (parts[0].charAt(0) + parts[parts.length - 1].charAt(0)).toUpperCase();
 }
 
-function ProfileCard() {
+function ProfileCard({ onSectionChange }) {
     const name = 'Mounette';
     const initials = getInitials(name);
     
@@ -77,7 +77,7 @@ function ProfileCard() {
                 <ProfileEmail>mounette@lapin.com</ProfileEmail>
             </ProfileInfoContainer>
             </ProfileCardHeader>
-            <ActionCard />
+            <ActionCard onSectionChange={onSectionChange} />
         </ProfileCardContainer>
     )
 }
