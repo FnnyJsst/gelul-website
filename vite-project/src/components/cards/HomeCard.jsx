@@ -15,8 +15,8 @@ const Overlay = styled.div`
 `
 
 const Card = styled.div`
-  width: 32vh;
-  height: 38vh;
+  width: 35vh;
+  height: 40vh;
   border-radius: 20px;
   display: flex;
   flex-direction: column;

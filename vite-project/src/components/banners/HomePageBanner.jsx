@@ -5,11 +5,11 @@ import { BsArrowRight } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
 const BannerDiv = styled.div`
-  height: 35vh;
+  height: 30vh;
   width: 100%;
   padding: 4vh;
   padding-left: 10vh;
-  background-image: url("${new URL('../../assets/images/blue-plate.jpeg', import.meta.url).href}");
+  background-image: url("${new URL('../../assets/images/table-plants.jpg', import.meta.url).href}");
   background-size: cover;
   background-position: center;
   position: relative;
@@ -21,9 +21,9 @@ const BannerDiv = styled.div`
 const Title = styled.h1`
   color: ${colors.white};
   font-weight: normal;
-  font-size: ${fontSizes.largeTitle};
-  width: 200px;
-  margin-bottom: 4vh;
+  font-size: ${fontSizes.xlargeTitle};
+  margin-bottom: 5vh;
+  margin-top: 2vh;
   position: relative;
   z-index: 2;
 `;
@@ -49,9 +49,9 @@ function HomePageBanner() {
   return (
     <BannerDiv>
       <Overlay />
-      <Title>Créateur d&apos;Originalités</Title>
+      <Title>Découvrez la nouvelle collection</Title>
       <ButtonWrapper>
-        <LargeButton Icon={BsArrowRight} text="Découvrez la collection" href="/boutique" onClick={() => navigate('/boutique')} />
+        <LargeButton Icon={BsArrowRight} text="Trouvez votre pièce unique ici" href="/boutique" onClick={() => navigate('/boutique')} />
       </ButtonWrapper>
     </BannerDiv>
   );

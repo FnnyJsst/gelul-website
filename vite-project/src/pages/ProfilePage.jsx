@@ -5,7 +5,7 @@ import ProfileCard from '../components/cards/ProfileCard'
 import PersonalInfoCard from '../components/cards/PersonalInfoCard'
 import OrdersCard from '../components/cards/OrdersCard'
 import WishlistCard from '../components/cards/WishlistCard'
-import PaymentsCard from '../components/cards/PaymentsCard'
+import PaymentsCard from '../components/cards/PaymentCard'
 
 const PageWrapper = styled.div`
   min-height: calc(95vh - 160px);

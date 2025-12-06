@@ -4,11 +4,8 @@ import { IoMenuOutline, IoPersonOutline, IoHeartOutline, IoCartOutline } from "r
 import { PiBasket } from "react-icons/pi";
 import logo from "../../assets/images/logo.png"
 import IconHeader from "../buttons/IconHeader"
-import InputSearch from "../InputSearch";
 import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
-import Cart from "../../pages/Cart";
-import ProfilePage from "../../pages/ProfilePage";
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -60,7 +57,6 @@ function Header() {
           <Logo src={logo} />
         </LeftSection>
       <RightSection>
-        <InputSearch />
         <Link to="/profile">
           <IconHeader Icon={IoPersonOutline} />
         </Link>

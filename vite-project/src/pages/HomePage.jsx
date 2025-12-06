@@ -6,6 +6,14 @@ import ContactMe from "./ContactMe";
 import peinture from "../assets/images/peinture.jpg";
 import banc2 from "../assets/images/banc2.jpg";
 import pot from "../assets/images/pot.jpg"
+import { fontSizes } from "../constants/style";
+
+const CategoryText = styled.p`
+  font-size: ${fontSizes.mediumTitle};
+  font-weight: normal;
+  margin-bottom: 5vh;
+  margin-top: 2vh;
+`;
 
 const CardDiv = styled.div`
   display: flex;
@@ -27,7 +35,7 @@ function HomePage () {
         <HomeCard cardTitle={"Décoration"}backgroundImage={pot}/>
         <HomeCard cardTitle={"Peintures"} backgroundImage={peinture}/>
       </CardDiv>
-      <AboutMe />
+      {/* <AboutMe /> */}
       {/* <ContactMe /> */}
     </>
   )

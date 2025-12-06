@@ -8,15 +8,14 @@ const PageContainer = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
+  padding: 1.6rem;
   background-color: #f2eaea;
-
 `
 
 const CardWrapper = styled.div`
   width: 100%;
-  max-width: 960px;
-  padding: 20px;
+  width: 85%;
+  padding: 2rem;
   background-image: url(${bluePlate});
   background-size: cover;
   background-position: center;
@@ -26,7 +25,7 @@ const CardWrapper = styled.div`
 
 const Content = styled.section`
   width: 100%;
-  padding: 2rem;
+  padding: 2.5rem;
   display: flex;
   flex-direction: column;
   gap: 1.8rem;
@@ -39,7 +38,7 @@ const Content = styled.section`
 `
 
 const Title = styled.h1`
-  font-size: ${fontSizes.mediumTitle};
+  font-size: ${fontSizes.smallTitle};
   font-weight: 500;
   text-align: left;
 `
@@ -47,7 +46,7 @@ const Title = styled.h1`
 const Paragraph = styled.p`
   font-size: ${fontSizes.large};
   max-width: 640px;
-  margin-top: -15px;
+  margin-top: -20px;
 `
 
 const ContactForm = styled.form`
@@ -103,7 +102,7 @@ const Input = styled.input`
 
 const Textarea = styled.textarea`
   ${inputBaseStyles};
-  min-height: 140px;
+  min-height: 130px;
   resize: vertical;
 `
 
@@ -141,6 +140,7 @@ const SubmitButton = styled.button`
   font-size: ${fontSizes.medium};
   font-weight: 500;
   cursor: pointer;
+  width: 100%;
   transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
 
   &:hover:not(:disabled) {

@@ -50,7 +50,7 @@ function Footer () {
       <LeftContainer>
         <FooterCard title="Navigation" elements={["Accueil", "Boutique", "À propos", "Évènements"]} />
         <FooterCard title="Boutique" elements={["Mobilier", "Décoration", "Peintures"]} />
-        <FooterCard title="Contact" elements={["contact@gelul.com"]} />
+        <FooterCard title="Contact" elements={["contact@gelul.com"]} href="/contact"/>
       </LeftContainer>
       <RightContainer>
         <IconWrapper>
