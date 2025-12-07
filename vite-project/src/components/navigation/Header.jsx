@@ -31,7 +31,7 @@ const MiddleSection = styled.nav`
   display: none;
   flex-direction: row;
   align-items: center;
-  gap: 5rem;
+  gap: 2rem;
   
   @media (min-width: 768px) {
     display: flex;
@@ -63,6 +63,67 @@ const NavigationLink = styled(Link)`
   `}
 `
 
+const DropdownContainer = styled.div`
+  position: relative;
+`
+
+const DropdownLink = styled(Link)`
+  text-decoration: none;
+  color: #000;
+  font-size: 1rem;
+  font-weight: ${props => props.$active ? '600' : '400'};
+  transition: color 0.2s;
+  position: relative;
+  cursor: pointer;
+  
+  &:hover {
+    color: rgb(107, 107, 77);
+  }
+  
+  ${props => props.$active && `
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: rgb(107, 107, 77);
+    }
+  `}
+`
+
+const DropdownMenu = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #ffffff;
+  min-width: 180px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 0.5rem 0;
+  margin-top: 0.5rem;
+  opacity: ${props => props.$isVisible ? '1' : '0'};
+  visibility: ${props => props.$isVisible ? 'visible' : 'hidden'};
+  transform: ${props => props.$isVisible ? 'translateY(0)' : 'translateY(-10px)'};
+  transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+  z-index: 1000;
+`
+
+const DropdownItem = styled(Link)`
+  display: block;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  color: #000;
+  font-size: 0.95rem;
+  transition: background-color 0.2s, color 0.2s;
+  
+  &:hover {
+    background-color: #f5f5f5;
+    color: rgb(107, 107, 77);
+  }
+`
+
 const MenuButton = styled.div`
   display: flex;
   
@@ -85,6 +146,7 @@ const Logo = styled.img`
 
 function Header() {
   const [sidebarVisible, setSidebarVisible] = useState(false);
+  const [boutiqueDropdownVisible, setBoutiqueDropdownVisible] = useState(false);
   const location = useLocation();
 
   function toggleSidebar() {
@@ -97,6 +159,13 @@ function Header() {
     }
     return location.pathname.startsWith(path);
   };
+
+  const boutiqueCategories = [
+    { id: 'tout', label: 'Voir tout', path: '/boutique' },
+    { id: 'mobilier', label: 'Mobilier', path: '/boutique?category=mobilier' },
+    { id: 'decoration', label: 'Décoration', path: '/boutique?category=decoration' },
+    { id: 'peintures', label: 'Peintures', path: '/boutique?category=peintures' }
+  ];
 
   return (
     <>
@@ -116,9 +185,25 @@ function Header() {
           <NavigationLink to="/" $active={isActive('/')}>
             Accueil
           </NavigationLink>
-          <NavigationLink to="/boutique" $active={isActive('/boutique')}>
-            Boutique
-          </NavigationLink>
+          <DropdownContainer
+            onMouseEnter={() => setBoutiqueDropdownVisible(true)}
+            onMouseLeave={() => setBoutiqueDropdownVisible(false)}
+          >
+            <DropdownLink to="/boutique" $active={isActive('/boutique')}>
+              Boutique
+            </DropdownLink>
+            <DropdownMenu $isVisible={boutiqueDropdownVisible}>
+              {boutiqueCategories.map((category) => (
+                <DropdownItem
+                  key={category.id}
+                  to={category.path}
+                  onClick={() => setBoutiqueDropdownVisible(false)}
+                >
+                  {category.label}
+                </DropdownItem>
+              ))}
+            </DropdownMenu>
+          </DropdownContainer>
           <NavigationLink to="/events" $active={isActive('/events')}>
             Évènements
           </NavigationLink>

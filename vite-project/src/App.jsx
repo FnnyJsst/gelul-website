@@ -3,6 +3,7 @@ import HomePage from './pages/HomePage'
 import HomeBoutique from './pages/HomeBoutique'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { createGlobalStyle } from 'styled-components';
+import styled from 'styled-components';
 import Footer from './components/navigation/Footer';
 import { PrimeReactProvider } from 'primereact/api';
 import Payment from './pages/Payment';
@@ -22,10 +23,40 @@ const GlobalStyle = createGlobalStyle `
     font-family: 'Raleway', sans-serif;
   }
 
+  html {
+    margin: 0;
+    padding: 0;
+    height: auto;
+    overflow-x: hidden;
+  }
+
   body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
     font-family: 'Raleway', sans-serif;
     background-color: #ffffff;
-  }`;
+    overflow-x: hidden;
+  }
+
+  #root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
+const AppContainer = styled.div`
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+`;
+
+const MainContent = styled.main`
+  flex: 1;
+`;
 
 function App() {
   // Si le mode "en construction" est activé, afficher uniquement cette page
@@ -50,19 +81,23 @@ function App() {
       <CartProvider>
         <PrimeReactProvider>
           <GlobalStyle />
-          <Router>
-            <Header />
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/boutique" element={<HomeBoutique />} />
-              <Route path="/product/:id" element={<ProductPage />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/payment" element={<Payment />} />
-              <Route path="/contact" element={<ContactMe />} />
-              <Route path="/profile" element={<ProfilePage />} />
-            </Routes>
-            <Footer />
-          </Router>
+          <AppContainer>
+            <Router>
+              <Header />
+              <MainContent>
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/boutique" element={<HomeBoutique />} />
+                  <Route path="/product/:id" element={<ProductPage />} />
+                  <Route path="/cart" element={<Cart />} />
+                  <Route path="/payment" element={<Payment />} />
+                  <Route path="/contact" element={<ContactMe />} />
+                  <Route path="/profile" element={<ProfilePage />} />
+                </Routes>
+              </MainContent>
+              <Footer />
+            </Router>
+          </AppContainer>
         </PrimeReactProvider>
       </CartProvider>
     </>

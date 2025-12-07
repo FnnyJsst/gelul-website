@@ -11,7 +11,10 @@ const FooterContainer = styled.div`
   flex-direction: row;
   min-height: 20vh;
   position: relative;
-  `;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+`;
 
 const LeftContainer = styled.div`
   display: flex;
