@@ -51,16 +51,17 @@ function Footer () {
         <FooterCard title="Navigation" elements={["Accueil", "Boutique", "À propos", "Évènements"]} />
         <FooterCard title="Boutique" elements={["Mobilier", "Décoration", "Peintures"]} />
         <FooterCard title="Contact" elements={["contact@gelul.com"]} href="/contact"/>
+        <FooterCard title="Informations" elements={["Politique de retour", "Livraison", "Mentions légales", "Conditions générales de vente"]} href="/mentions-legales"/>
       </LeftContainer>
       <RightContainer>
         <IconWrapper>
           <IconFooter Icon={FaFacebook} />
           <IconFooter Icon={FaInstagram} />
         </IconWrapper>
-        <Copyright>© Gelul 2025</Copyright>
+        <Copyright>© Gelul 2025 | Créateur d'Originalités</Copyright>
       </RightContainer>
     </FooterContainer>
   )
 }
 
-export default Footer;
+export default Footer; 

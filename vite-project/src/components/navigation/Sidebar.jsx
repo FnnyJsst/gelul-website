@@ -27,6 +27,13 @@ const GlobalSidebarStyle = createGlobalStyle`
     background-color: rgba(0, 0, 0, 0.6) !important;
     backdrop-filter: blur(1px);
   }
+  
+  @media (min-width: 768px) {
+    .custom-sidebar,
+    .p-sidebar-mask {
+      display: none !important;
+    }
+  }
 `;
 
 const SidebarContent = styled.div`
