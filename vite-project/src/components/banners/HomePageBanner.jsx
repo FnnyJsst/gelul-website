@@ -22,7 +22,7 @@ const Title = styled.h1`
   color: ${colors.white};
   font-weight: normal;
   font-size: ${fontSizes.xlargeTitle};
-  margin-bottom: 5vh;
+  margin-bottom: 6vh;
   margin-top: 2vh;
   position: relative;
   z-index: 2;
@@ -49,7 +49,7 @@ function HomePageBanner() {
   return (
     <BannerDiv>
       <Overlay />
-      <Title>Découvrez la nouvelle collection</Title>
+      <Title>Le design qui donne une seconde vie à la matière.</Title>
       <ButtonWrapper>
         <LargeButton Icon={BsArrowRight} text="Trouvez votre pièce unique ici" href="/boutique" onClick={() => navigate('/boutique')} />
       </ButtonWrapper>

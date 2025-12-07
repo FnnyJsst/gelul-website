@@ -23,7 +23,7 @@ const RightSection = styled.div`
 
 const Title = styled.h1`
   font-size: ${fontSizes.mediumTitle};
-  font-weight: normal;
+  font-weight: 500;
   margin-top: 8vh;
   margin-bottom: 5vh;
 `;

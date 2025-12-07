@@ -8,21 +8,14 @@ import banc2 from "../assets/images/banc2.jpg";
 import pot from "../assets/images/pot.jpg"
 import { fontSizes } from "../constants/style";
 
-const CategoryText = styled.p`
-  font-size: ${fontSizes.mediumTitle};
-  font-weight: normal;
-  margin-bottom: 5vh;
-  margin-top: 2vh;
-`;
-
 const CardDiv = styled.div`
   display: flex;
   flex-direction: row;
   align-item: center;
   gap: 20vh;
   justify-content: center;
-  padding-top: 8vh;
-  padding-bottom: 8vh;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
   background-color: #f2eaea;
 `;
 

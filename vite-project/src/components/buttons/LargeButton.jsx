@@ -1,14 +1,15 @@
 import styled from "styled-components";
+import { fontSizes } from "../../constants/style";
 
 const Button = styled.button `
-  padding: 1.5em;
+  padding: 1.6em;
   border-radius: 15px;
   border: none;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 10px;
-  font-weight: 500;
+  font-weight: 600;
   background: ${(props) => props.$backgroundColor || "white"};
   color: ${(props) => props.$color || "#333"};
   cursor: pointer;
@@ -16,6 +17,7 @@ const Button = styled.button `
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
+  font-size: ${fontSizes.small};
   
   &::before {
     content: '';
@@ -47,8 +49,8 @@ const Button = styled.button `
   }
   
   svg {
-    width: ${(props) => props.$iconWidth || "15px"};
-    height: ${(props) => props.$iconHeight || "15px"};
+    width: ${(props) => props.$iconWidth || "20px"};
+    height: ${(props) => props.$iconHeight || "20px"};
     transition: all 0.3s ease;
   }
 `;

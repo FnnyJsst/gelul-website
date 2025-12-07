@@ -15,7 +15,7 @@ const fontSizes = {
   smallTitle: '24px',
   mediumTitle: '28px',
   largeTitle: '30px',
-  xlargeTitle: '36px',
+  xlargeTitle: '38px',
   xxlargeTitle: '40px'
 }
 
