@@ -21,8 +21,8 @@ const CardDiv = styled.div`
   align-item: center;
   gap: 20vh;
   justify-content: center;
-  padding-top: 7vh;
-  padding-bottom: 7vh;
+  padding-top: 8vh;
+  padding-bottom: 8vh;
   background-color: #f2eaea;
 `;
 
@@ -35,7 +35,7 @@ function HomePage () {
         <HomeCard cardTitle={"Décoration"}backgroundImage={pot}/>
         <HomeCard cardTitle={"Peintures"} backgroundImage={peinture}/>
       </CardDiv>
-      {/* <AboutMe /> */}
+      <AboutMe />
       {/* <ContactMe /> */}
     </>
   )

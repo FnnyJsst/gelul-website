@@ -12,7 +12,7 @@ const LeftSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 10vh;
+  margin-left: 6vh;
 `;
 
 const RightSection = styled.div`
@@ -32,7 +32,7 @@ const Paragraph = styled.p`
   font-size: ${fontSizes.large};
   font-weight: normal;
   margin-bottom: 5vh;
-  width: 58%;
+  width: 60%;
   line-height: 1.5;
 `;
 
@@ -44,12 +44,13 @@ function AboutMe () {
             <AboutMeCard />
           </LeftSection>
           <RightSection>
-              <Title>Présentation</Title>
-              <Paragraph>Dans mon atelier, chaque pièce raconte 
-                une histoire unique. Je crée des œuvres 
-                qui allient esthétique et fonctionnalité, 
-                en m'inspirant de la beauté qui nous entoure pour donner vie à des créations 
-                personnalisées qui enrichiront votre intérieur.
+              <Title>La philosophie GELUL : <br /> Donner une seconde vie à la matière</Title>
+              <Paragraph>Fabriquée dans mon atelier situé à Bayeux, chaque pièce raconte une histoire unique. <br /><br />
+                         Ma démarche s'articule autour du réemploi : je crée des œuvres esthétiques 
+                         et fonctionnelles en transformant des matériaux destinés à être jetés. 
+                         Que ce soit de vieilles chaises, des tabourets délaissés ou des tables oubliées, 
+                         je récupère ce bois pour lui offrir une seconde vie sous forme de mobilier vivant 
+                         et coloré, en alliant le savoir-faire de la peinture à la main.
               </Paragraph>
           </RightSection>
       </PageContainer>
