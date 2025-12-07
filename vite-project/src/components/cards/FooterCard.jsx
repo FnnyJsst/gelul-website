@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const Card = styled.div`
   display: flex;
@@ -33,14 +34,35 @@ const ListItem = styled.li`
   margin-bottom: 5px;
 `
 
+const StyledLink = styled(Link)`
+  color: #ffffff;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+  
+  &:hover {
+    opacity: 0.8;
+  }
+`
+
 function FooterCard ({title, elements}) {
   return (
     <Card>
         <Title>{title}</Title>
         <StyledList>
-            {elements.map((element, index) => (
-                <ListItem key={index}>{element}</ListItem>
-            ))}
+            {elements.map((element, index) => {
+              // Si l'élément est un objet avec text et to, créer un lien
+              if (typeof element === 'object' && element.text && element.to) {
+                return (
+                  <ListItem key={index}>
+                    <StyledLink to={element.to}>{element.text}</StyledLink>
+                  </ListItem>
+                );
+              }
+              // Sinon, afficher le texte simple (compatibilité avec l'ancien format)
+              return (
+                <ListItem key={index}>{typeof element === 'string' ? element : element.text || element}</ListItem>
+              );
+            })}
         </StyledList>
     </Card>
   )

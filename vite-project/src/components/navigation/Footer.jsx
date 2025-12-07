@@ -51,10 +51,39 @@ function Footer () {
   return (
     <FooterContainer>
       <LeftContainer>
-        <FooterCard title="Navigation" elements={["Accueil", "Boutique", "À propos", "Évènements"]} />
-        <FooterCard title="Boutique" elements={["Mobilier", "Décoration", "Peintures"]} />
-        <FooterCard title="Contact" elements={["contact@gelul.com"]} href="/contact"/>
-        <FooterCard title="Informations" elements={["Politique de retour", "Livraison", "Mentions légales", "Conditions générales de vente"]} href="/mentions-legales"/>
+        <FooterCard 
+          title="Navigation" 
+          elements={[
+            { text: "Accueil", to: "/" },
+            { text: "Boutique", to: "/boutique" },
+            { text: "À propos", to: "/about" },
+            { text: "Évènements", to: "/events" }
+          ]} 
+        />
+        <FooterCard 
+          title="Boutique" 
+          elements={[
+            { text: "Mobilier", to: "/boutique?category=mobilier" },
+            { text: "Décoration", to: "/boutique?category=decoration" },
+            { text: "Peintures", to: "/boutique?category=peintures" }
+          ]} 
+        />
+        <FooterCard 
+          title="Contact" 
+          elements={[
+            { text: "Formulaire de contact", to: "/contact" },
+            "contact@gelul.com"
+          ]}
+        />
+        <FooterCard 
+          title="Informations" 
+          elements={[
+            "Politique de retour",
+            "Livraison",
+            { text: "Mentions légales", to: "/mentions-legales" },
+            "Conditions générales de vente"
+          ]}
+        />
       </LeftContainer>
       <RightContainer>
         <IconWrapper>
