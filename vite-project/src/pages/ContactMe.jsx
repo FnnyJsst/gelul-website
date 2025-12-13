@@ -8,14 +8,13 @@ const PageContainer = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1.6rem;
+  padding: 1.2rem;
   background-color: #f2eaea;
 `
 
 const CardWrapper = styled.div`
-  width: 100%;
-  width: 85%;
-  padding: 2rem;
+  width: 80%;
+  padding: 1rem;
   background-image: url(${bluePlate});
   background-size: cover;
   background-position: center;
@@ -25,7 +24,7 @@ const CardWrapper = styled.div`
 
 const Content = styled.section`
   width: 100%;
-  padding: 2.5rem;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 1.8rem;
@@ -45,14 +44,13 @@ const Title = styled.h1`
 
 const Paragraph = styled.p`
   font-size: ${fontSizes.large};
-  max-width: 640px;
   margin-top: -20px;
 `
 
 const ContactForm = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 1.7rem;
+  gap: 1rem;
 `
 
 const FormRow = styled.div`
@@ -73,7 +71,7 @@ const FormField = styled.div`
 
 const Label = styled.label`
   font-size: ${fontSizes.small};
-  font-weight: 500;
+  font-weight: 600;
   color: ${colors.black};
 `
 
@@ -128,7 +126,7 @@ const FormFooter = styled.div`
 
 const Hint = styled.span`
   font-size: ${fontSizes.small};
-  color: ${colors.gray};  A
+  color: ${colors.gray};
 `
 
 const SubmitButton = styled.button`
@@ -156,6 +154,87 @@ const SubmitButton = styled.button`
   }
 `
 
+const FileInputWrapper = styled.div`
+  position: relative;
+  width: 100%;
+`
+
+const FileInputLabel = styled.label`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.1rem;
+  border-radius: 14px;
+  border: 2px dashed ${colors.lightGray};
+  background-color: ${colors.white};
+  font-size: ${fontSizes.medium};
+  color: ${colors.black};
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+
+  &:hover {
+    border-color: ${colors.black};
+    background-color: ${colors.lightGray};
+  }
+`
+
+const HiddenFileInput = styled.input`
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  z-index: -1;
+`
+
+const FileList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+`
+
+const FileItem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  background-color: ${colors.white};
+  border: 1px solid ${colors.lightGray};
+  font-size: ${fontSizes.small};
+`
+
+const FileName = styled.span`
+  flex: 1;
+  color: ${colors.black};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`
+
+const FileSize = styled.span`
+  color: ${colors.gray};
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+`
+
+const RemoveFileButton = styled.button`
+  background: none;
+  border: none;
+  color: #c2402b;
+  cursor: pointer;
+  font-size: ${fontSizes.medium};
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: rgba(194, 64, 43, 0.1);
+  }
+`
+
 const initialValues = {
   lastName: '',
   firstName: '',
@@ -169,7 +248,9 @@ function ContactMe() {
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState('idle')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [files, setFiles] = useState([])
   const submitTimeoutRef = useRef(null)
+  const fileInputRef = useRef(null)
 
   useEffect(
     () => () => {
@@ -234,6 +315,39 @@ function ContactMe() {
     }
   }
 
+  const handleFileChange = (event) => {
+    const selectedFiles = Array.from(event.target.files)
+    
+    // Limite de 10 Mo par fichier
+    const maxSize = 10 * 1024 * 1024 // 10 MB
+    const validFiles = selectedFiles.filter(file => {
+      if (file.size > maxSize) {
+        alert(`Le fichier "${file.name}" est trop volumineux (max 10 Mo)`)
+        return false
+      }
+      return true
+    })
+
+    setFiles((previous) => [...previous, ...validFiles])
+    
+    // Réinitialiser l'input pour permettre de sélectionner le même fichier à nouveau
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''
+    }
+  }
+
+  const handleRemoveFile = (index) => {
+    setFiles((previous) => previous.filter((_, i) => i !== index))
+  }
+
+  const formatFileSize = (bytes) => {
+    if (bytes === 0) return '0 Bytes'
+    const k = 1024
+    const sizes = ['Bytes', 'KB', 'MB', 'GB']
+    const i = Math.floor(Math.log(bytes) / Math.log(k))
+    return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i]
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault()
 
@@ -248,9 +362,14 @@ function ContactMe() {
     setIsSubmitting(true)
     setStatus('pending')
 
+    // Ici, vous pouvez ajouter la logique pour envoyer les fichiers avec le formulaire
+    // Par exemple, créer un FormData et inclure les fichiers
+    console.log('Fichiers sélectionnés:', files)
+
     submitTimeoutRef.current = window.setTimeout(() => {
       setValues(initialValues)
       setErrors({})
+      setFiles([])
       setIsSubmitting(false)
       setStatus('success')
     }, 600)
@@ -261,8 +380,8 @@ function ContactMe() {
       <PageContainer>
         <CardWrapper>
           <Content>
-            <Title>Une idée de projet&nbsp;? Une question&nbsp;? 😊</Title>
-            <Paragraph>Contactez-moi via le formulaire ci-dessous et je vous répondrai rapidement.</Paragraph>
+            <Title>Un projet sur mesure&nbsp;? Une question&nbsp;? 😊</Title>
+            <Paragraph>Contactez-moi via le formulaire ci-dessous et je vous répondrai sous 24 heures.</Paragraph>
 
           <ContactForm noValidate onSubmit={handleSubmit}>
             {status === 'success' && (
@@ -357,10 +476,49 @@ function ContactMe() {
               </FormField>
             </FormRow>
 
+            <FormRow>
+              <FormField $fullWidth>
+                <Label htmlFor="files">Pièces jointes (photos, PDF, etc.)</Label>
+                <FileInputWrapper>
+                  <FileInputLabel htmlFor="files">
+                    📎 Cliquez pour ajouter des fichiers
+                  </FileInputLabel>
+                  <HiddenFileInput
+                    ref={fileInputRef}
+                    id="files"
+                    name="files"
+                    type="file"
+                    multiple
+                    accept="image/*,.pdf,.doc,.docx"
+                    onChange={handleFileChange}
+                  />
+                </FileInputWrapper>
+                {files.length > 0 && (
+                  <FileList>
+                    {files.map((file, index) => (
+                      <FileItem key={index}>
+                        <FileName>{file.name}</FileName>
+                        <FileSize>{formatFileSize(file.size)}</FileSize>
+                        <RemoveFileButton
+                          type="button"
+                          onClick={() => handleRemoveFile(index)}
+                          aria-label={`Supprimer ${file.name}`}
+                        >
+                          ✕
+                        </RemoveFileButton>
+                      </FileItem>
+                    ))}
+                  </FileList>
+                )}
+                <Hint style={{ marginTop: '0.5rem' }}>
+                  Formats acceptés : jpeg, jpg, png, pdf. Taille maximale : 10 Mo par fichier. Les champs marqués d’un * sont obligatoires.
+                </Hint>
+              </FormField>
+            </FormRow>
+
             <FormFooter>
-              <Hint>Les champs marqués d’un * sont obligatoires.</Hint>
               <SubmitButton type="submit" disabled={isSubmitting}>
-                {isSubmitting ? 'Envoi en cours…' : 'Envoyer'}
+                {isSubmitting ? 'Envoi en cours…' : 'Envoyez-moi un message'}
               </SubmitButton>
             </FormFooter>
           </ContactForm>
