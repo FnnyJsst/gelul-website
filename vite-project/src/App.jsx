@@ -14,6 +14,7 @@ import ContactMe from './pages/ContactMe';
 import ProfilePage from './pages/ProfilePage';
 import Favourites from './pages/Favourites';
 import ComingSoon from './pages/ComingSoon';
+import Portfolio from './pages/Portfolio';
 import { IS_COMING_SOON_MODE } from './config/comingSoon';
 
 const GlobalStyle = createGlobalStyle `
@@ -95,6 +96,7 @@ function App() {
                   <Route path="/contact" element={<ContactMe />} />
                   <Route path="/profile" element={<ProfilePage />} />
                   <Route path="/favourites" element={<Favourites />} />
+                  <Route path="/portfolio" element={<Portfolio />} />
                 </Routes>
               </MainContent>
               <Footer />

@@ -12,8 +12,8 @@ const CardDiv = styled.div`
   align-item: center;
   gap: 20vh;
   justify-content: center;
-  padding-top: 5vh;
-  padding-bottom: 5vh;
+  padding-top: 6vh;
+  padding-bottom: 6vh;
   background-color: #f2eaea;
 `;
 

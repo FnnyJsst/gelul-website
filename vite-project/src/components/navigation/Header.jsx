@@ -204,6 +204,9 @@ function Header() {
               ))}
             </DropdownMenu>
           </DropdownContainer>
+          <NavigationLink to="/portfolio" $active={isActive('/portfolio')}>
+            Portfolio
+          </NavigationLink>
           <NavigationLink to="/events" $active={isActive('/events')}>
             Évènements
           </NavigationLink>

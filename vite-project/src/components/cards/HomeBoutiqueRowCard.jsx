@@ -8,6 +8,7 @@ const Container = styled.div`
   padding: 2rem;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 2rem;
 `
 
 function HomeBoutiqueRowCard() {
