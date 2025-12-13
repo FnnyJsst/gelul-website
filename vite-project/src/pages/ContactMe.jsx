@@ -8,27 +8,20 @@ const PageContainer = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1.2rem;
-  background-color: #f2eaea;
-`
-
-const CardWrapper = styled.div`
-  width: 80%;
-  padding: 1rem;
+  padding: 2.5rem;
   background-image: url(${bluePlate});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  border-radius: 18px;
 `
 
 const Content = styled.section`
-  width: 100%;
+  width: 70%;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 1.8rem;
-  background-color:rgba(226, 217, 217, 0.96);
+  background-color:rgba(226, 217, 217);
   border-radius: 16px;
 
   @media (max-width: 768px) {
@@ -378,152 +371,150 @@ function ContactMe() {
   return (
     <>
       <PageContainer>
-        <CardWrapper>
-          <Content>
-            <Title>Un projet sur mesure&nbsp;? Une question&nbsp;? 😊</Title>
-            <Paragraph>Contactez-moi via le formulaire ci-dessous et je vous répondrai sous 24 heures.</Paragraph>
+        <Content>
+          <Title>Un projet sur mesure&nbsp;? Une question&nbsp;? 😊</Title>
+          <Paragraph>Contactez-moi via le formulaire ci-dessous et je vous répondrai sous 24 heures.</Paragraph>
 
-          <ContactForm noValidate onSubmit={handleSubmit}>
-            {status === 'success' && (
-              <SuccessMessage role="status" aria-live="polite">
-                Merci pour votre message&nbsp;! Je reviens vers vous au plus vite.
-              </SuccessMessage>
-            )}
+        <ContactForm noValidate onSubmit={handleSubmit}>
+          {status === 'success' && (
+            <SuccessMessage role="status" aria-live="polite">
+              Merci pour votre message&nbsp;! Je reviens vers vous au plus vite.
+            </SuccessMessage>
+          )}
 
-            <FormRow>
-              <FormField>
-                <Label htmlFor="lastName">Nom *</Label>
-                <Input
-                  id="lastName"
-                  name="lastName"
-                  type="text"
-                  placeholder="Dupont"
-                  autoComplete="family-name"
-                  value={values.lastName}
-                  onChange={handleChange}
-                  aria-invalid={Boolean(errors.lastName)}
-                  aria-describedby={errors.lastName ? 'lastName-error' : undefined}
+          <FormRow>
+            <FormField>
+              <Label htmlFor="lastName">Nom *</Label>
+              <Input
+                id="lastName"
+                name="lastName"
+                type="text"
+                placeholder="Dupont"
+                autoComplete="family-name"
+                value={values.lastName}
+                onChange={handleChange}
+                aria-invalid={Boolean(errors.lastName)}
+                aria-describedby={errors.lastName ? 'lastName-error' : undefined}
+              />
+              {errors.lastName && <ErrorMessage id="lastName-error">{errors.lastName}</ErrorMessage>}
+            </FormField>
+
+            <FormField>
+              <Label htmlFor="firstName">Prénom *</Label>
+              <Input
+                id="firstName"
+                name="firstName"
+                type="text"
+                placeholder="Emma"
+                autoComplete="given-name"
+                value={values.firstName}
+                onChange={handleChange}
+                aria-invalid={Boolean(errors.firstName)}
+                aria-describedby={errors.firstName ? 'firstName-error' : undefined}
+              />
+              {errors.firstName && (
+                <ErrorMessage id="firstName-error">{errors.firstName}</ErrorMessage>
+              )}
+            </FormField>
+          </FormRow>
+
+          <FormRow>
+            <FormField>
+              <Label htmlFor="email">E-mail *</Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="emma.dupont@email.com"
+                autoComplete="email"
+                value={values.email}
+                onChange={handleChange}
+                aria-invalid={Boolean(errors.email)}
+                aria-describedby={errors.email ? 'email-error' : undefined}
+              />
+              {errors.email && <ErrorMessage id="email-error">{errors.email}</ErrorMessage>}
+            </FormField>
+
+            <FormField>
+              <Label htmlFor="phone">Téléphone</Label>
+              <Input
+                id="phone"
+                name="phone"
+                type="tel"
+                placeholder="+33 6 12 34 56 78"
+                autoComplete="tel"
+                value={values.phone}
+                onChange={handleChange}
+                aria-invalid={Boolean(errors.phone)}
+                aria-describedby={errors.phone ? 'phone-error' : undefined}
+              />
+              {errors.phone && <ErrorMessage id="phone-error">{errors.phone}</ErrorMessage>}
+            </FormField>
+          </FormRow>
+
+          <FormRow>
+            <FormField $fullWidth>
+              <Label htmlFor="message">Message *</Label>
+              <Textarea
+                id="message"
+                name="message"
+                placeholder="Présentez votre projet et vos besoins…"
+                value={values.message}
+                onChange={handleChange}
+                aria-invalid={Boolean(errors.message)}
+                aria-describedby={errors.message ? 'message-error' : undefined}
+              />
+              {errors.message && <ErrorMessage id="message-error">{errors.message}</ErrorMessage>}
+            </FormField>
+          </FormRow>
+
+          <FormRow>
+            <FormField $fullWidth>
+              <Label htmlFor="files">Pièces jointes (photos, PDF, etc.)</Label>
+              <FileInputWrapper>
+                <FileInputLabel htmlFor="files">
+                  📎 Cliquez pour ajouter des fichiers
+                </FileInputLabel>
+                <HiddenFileInput
+                  ref={fileInputRef}
+                  id="files"
+                  name="files"
+                  type="file"
+                  multiple
+                  accept="image/*,.pdf,.doc,.docx"
+                  onChange={handleFileChange}
                 />
-                {errors.lastName && <ErrorMessage id="lastName-error">{errors.lastName}</ErrorMessage>}
-              </FormField>
+              </FileInputWrapper>
+              {files.length > 0 && (
+                <FileList>
+                  {files.map((file, index) => (
+                    <FileItem key={index}>
+                      <FileName>{file.name}</FileName>
+                      <FileSize>{formatFileSize(file.size)}</FileSize>
+                      <RemoveFileButton
+                        type="button"
+                        onClick={() => handleRemoveFile(index)}
+                        aria-label={`Supprimer ${file.name}`}
+                      >
+                        ✕
+                      </RemoveFileButton>
+                    </FileItem>
+                  ))}
+                </FileList>
+              )}
+              <Hint style={{ marginTop: '0.5rem' }}>
+                Formats acceptés : jpeg, jpg, png, pdf. Taille maximale : 10 Mo par fichier. Les champs marqués d’un * sont obligatoires.
+              </Hint>
+            </FormField>
+          </FormRow>
 
-              <FormField>
-                <Label htmlFor="firstName">Prénom *</Label>
-                <Input
-                  id="firstName"
-                  name="firstName"
-                  type="text"
-                  placeholder="Emma"
-                  autoComplete="given-name"
-                  value={values.firstName}
-                  onChange={handleChange}
-                  aria-invalid={Boolean(errors.firstName)}
-                  aria-describedby={errors.firstName ? 'firstName-error' : undefined}
-                />
-                {errors.firstName && (
-                  <ErrorMessage id="firstName-error">{errors.firstName}</ErrorMessage>
-                )}
-              </FormField>
-            </FormRow>
-
-            <FormRow>
-              <FormField>
-                <Label htmlFor="email">E-mail *</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="emma.dupont@email.com"
-                  autoComplete="email"
-                  value={values.email}
-                  onChange={handleChange}
-                  aria-invalid={Boolean(errors.email)}
-                  aria-describedby={errors.email ? 'email-error' : undefined}
-                />
-                {errors.email && <ErrorMessage id="email-error">{errors.email}</ErrorMessage>}
-              </FormField>
-
-              <FormField>
-                <Label htmlFor="phone">Téléphone</Label>
-                <Input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  placeholder="+33 6 12 34 56 78"
-                  autoComplete="tel"
-                  value={values.phone}
-                  onChange={handleChange}
-                  aria-invalid={Boolean(errors.phone)}
-                  aria-describedby={errors.phone ? 'phone-error' : undefined}
-                />
-                {errors.phone && <ErrorMessage id="phone-error">{errors.phone}</ErrorMessage>}
-              </FormField>
-            </FormRow>
-
-            <FormRow>
-              <FormField $fullWidth>
-                <Label htmlFor="message">Message *</Label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  placeholder="Présentez votre projet et vos besoins…"
-                  value={values.message}
-                  onChange={handleChange}
-                  aria-invalid={Boolean(errors.message)}
-                  aria-describedby={errors.message ? 'message-error' : undefined}
-                />
-                {errors.message && <ErrorMessage id="message-error">{errors.message}</ErrorMessage>}
-              </FormField>
-            </FormRow>
-
-            <FormRow>
-              <FormField $fullWidth>
-                <Label htmlFor="files">Pièces jointes (photos, PDF, etc.)</Label>
-                <FileInputWrapper>
-                  <FileInputLabel htmlFor="files">
-                    📎 Cliquez pour ajouter des fichiers
-                  </FileInputLabel>
-                  <HiddenFileInput
-                    ref={fileInputRef}
-                    id="files"
-                    name="files"
-                    type="file"
-                    multiple
-                    accept="image/*,.pdf,.doc,.docx"
-                    onChange={handleFileChange}
-                  />
-                </FileInputWrapper>
-                {files.length > 0 && (
-                  <FileList>
-                    {files.map((file, index) => (
-                      <FileItem key={index}>
-                        <FileName>{file.name}</FileName>
-                        <FileSize>{formatFileSize(file.size)}</FileSize>
-                        <RemoveFileButton
-                          type="button"
-                          onClick={() => handleRemoveFile(index)}
-                          aria-label={`Supprimer ${file.name}`}
-                        >
-                          ✕
-                        </RemoveFileButton>
-                      </FileItem>
-                    ))}
-                  </FileList>
-                )}
-                <Hint style={{ marginTop: '0.5rem' }}>
-                  Formats acceptés : jpeg, jpg, png, pdf. Taille maximale : 10 Mo par fichier. Les champs marqués d’un * sont obligatoires.
-                </Hint>
-              </FormField>
-            </FormRow>
-
-            <FormFooter>
-              <SubmitButton type="submit" disabled={isSubmitting}>
-                {isSubmitting ? 'Envoi en cours…' : 'Envoyez-moi un message'}
-              </SubmitButton>
-            </FormFooter>
-          </ContactForm>
-          </Content>
-        </CardWrapper>
+          <FormFooter>
+            <SubmitButton type="submit" disabled={isSubmitting}>
+              {isSubmitting ? 'Envoi en cours…' : 'Envoyez-moi un message'}
+            </SubmitButton>
+          </FormFooter>
+        </ContactForm>
+        </Content>
       </PageContainer>
     </>
   )

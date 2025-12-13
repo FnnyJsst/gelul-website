@@ -3,6 +3,9 @@
   publish = "dist"
   # Commande de build
   command = "npm run build"
+  # IMPORTANT: Pour économiser les crédits pendant le développement
+  # Les builds automatiques peuvent être désactivés dans le dashboard Netlify
+  # Site settings > Build & deploy > Build settings > Stop auto publishing
 
 [build.environment]
   # Version de Node.js
