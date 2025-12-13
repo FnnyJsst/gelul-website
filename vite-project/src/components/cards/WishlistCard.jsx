@@ -1,81 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { fontSizes, colors } from '../../constants/style'
+import HomeBoutiqueCard from './HomeBoutiqueCard'
 
-const CardContainer = styled.div`
+const Container = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  background-color: rgb(233, 231, 231);
-  border-radius: 16px;
+  gap: 3rem;
   padding: 2rem;
-  width: 85%;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
-`
-
-const CardTitle = styled.h1`
-  font-size: ${fontSizes.large};
-  font-weight: 500;
-`
-
-const WishlistGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 1.5rem;
-`
-
-const WishlistItem = styled.div`
-  background-color: ${colors.white};
-  border-radius: 12px;
-  padding: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-  }
-`
-
-const ItemImage = styled.img`
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 8px;
-`
-
-const ItemName = styled.span`
-  font-size: ${fontSizes.small};
-  font-weight: 500;
-  text-align: center;
-`
-
-const ItemPrice = styled.span`
-  font-size: ${fontSizes.small};
-  font-weight: 400;
-  color: ${colors.gray};
-  text-align: center;
-  font-family: 'DM Mono', monospace;
-`
-
-const RemoveButton = styled.button`
-  padding: 0.5rem;
-  background-color: transparent;
-  border: 1px solid ${colors.lightGray};
-  border-radius: 8px;
-  font-size: ${fontSizes.small};
-  color: ${colors.gray};
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background-color: ${colors.lightGray};
-    color: ${colors.black};
-  }
+  flex-wrap: wrap;
+  justify-content: center;
 `
 
 const EmptyState = styled.div`
@@ -83,6 +16,7 @@ const EmptyState = styled.div`
   padding: 3rem 1rem;
   color: ${colors.gray};
   font-size: ${fontSizes.medium};
+  width: 100%;
 `
 
 function WishlistCard() {
@@ -93,18 +27,18 @@ function WishlistCard() {
     // TODO: Remplacer par un appel API réel
     // Simuler un chargement
     setTimeout(() => {
-      // Données d'exemple
+      // Données d'exemple - format adapté pour HomeBoutiqueCard
       setWishlistItems([
         {
           id: 1,
-          name: 'Produit 1',
-          price: 29.99,
+          title: 'Produit 1',
+          price: '29.99€',
           image: 'https://via.placeholder.com/150'
         },
         {
           id: 2,
-          name: 'Produit 2',
-          price: 49.99,
+          title: 'Produit 2',
+          price: '49.99€',
           image: 'https://via.placeholder.com/150'
         }
       ]);
@@ -119,33 +53,29 @@ function WishlistCard() {
 
   if (loading) {
     return (
-      <CardContainer>
-        <CardTitle>Mes favoris</CardTitle>
+      <Container>
         <EmptyState>Chargement...</EmptyState>
-      </CardContainer>
+      </Container>
     );
   }
 
   return (
-    <CardContainer>
-      <CardTitle>Mes favoris</CardTitle>
+    <Container>
       {wishlistItems.length === 0 ? (
         <EmptyState>Votre liste de favoris est vide.</EmptyState>
       ) : (
-        <WishlistGrid>
-          {wishlistItems.map((item) => (
-            <WishlistItem key={item.id}>
-              <ItemImage src={item.image} alt={item.name} />
-              <ItemName>{item.name}</ItemName>
-              <ItemPrice>{item.price.toFixed(2)}€</ItemPrice>
-              <RemoveButton onClick={() => handleRemove(item.id)}>
-                Retirer des favoris
-              </RemoveButton>
-            </WishlistItem>
-          ))}
-        </WishlistGrid>
+        wishlistItems.map(product => (
+          <HomeBoutiqueCard 
+            key={product.id}
+            id={product.id}
+            image={product.image}
+            title={product.title}
+            price={product.price}
+            onRemove={handleRemove}
+          />
+        ))
       )}
-    </CardContainer>
+    </Container>
   )
 }
 

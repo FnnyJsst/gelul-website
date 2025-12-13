@@ -215,7 +215,9 @@ function Header() {
           <Link to="/profile">
             <IconHeader Icon={IoPersonOutline} />
           </Link>
-          <IconHeader Icon={IoHeartOutline} />
+          <Link to="/favourites">
+            <IconHeader Icon={IoHeartOutline} />
+          </Link>
           <Link to="/cart">
             <IconHeader Icon={PiBasket} />
           </Link>

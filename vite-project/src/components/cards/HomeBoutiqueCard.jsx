@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import { colors, fontSizes } from '../../constants/style'
-import { FaHeart } from 'react-icons/fa'
+import { FaHeart, FaTimes } from 'react-icons/fa'
 
 const Card = styled.div`
   width: 50vh;
@@ -89,6 +89,12 @@ const HeartIcon = styled(FaHeart)`
   font-size: 1.25rem;
 `
 
+const RemoveIcon = styled(FaTimes)`
+  color: ${colors.lightGray};
+  font-size: 1rem;
+  font-weight: 300;
+`
+
 const Title = styled.h1`
   font-size: ${fontSizes.medium};
   font-weight: 600;
@@ -102,7 +108,7 @@ const Price = styled.p`
   font-family: 'DM Mono', monospace;
 `
 
-function HomeBoutiqueCard({ id, image, title, price }) {
+function HomeBoutiqueCard({ id, image, title, price, onRemove }) {
   const navigate = useNavigate()
   const [isFavorite, setIsFavorite] = useState(false)
 
@@ -119,6 +125,13 @@ function HomeBoutiqueCard({ id, image, title, price }) {
     // Ici vous pourrez implémenter la logique d'ajout aux favoris
   }
 
+  const handleRemove = (e) => {
+    e.stopPropagation()
+    if (onRemove) {
+      onRemove(id)
+    }
+  }
+
   const handleClick = () => {
     navigate(`/product/${id}`)
   }
@@ -127,9 +140,15 @@ function HomeBoutiqueCard({ id, image, title, price }) {
     <Card onClick={handleClick}>
       <ImageContainer >
         <Image src={image} alt={title || "Boutique"} />
-        <FavoriteButton onClick={handleToggleFavorite}>
-          <HeartIcon $isFavorite={isFavorite} />
-        </FavoriteButton>
+        {onRemove ? (
+          <FavoriteButton onClick={handleRemove}>
+            <RemoveIcon />
+          </FavoriteButton>
+        ) : (
+          <FavoriteButton onClick={handleToggleFavorite}>
+            <HeartIcon $isFavorite={isFavorite} />
+          </FavoriteButton>
+        )}
         <AddToCartButton 
           className="add-to-cart-button"
           onClick={handleAddToCart}

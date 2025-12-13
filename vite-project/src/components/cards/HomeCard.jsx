@@ -32,7 +32,7 @@ const Card = styled.div`
   overflow: hidden;
   
   &:hover {
-    transform: translateY(-10px) scale(1.02);
+    transform: translateY(-2px) scale(1.02);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
     
     ${Overlay} {

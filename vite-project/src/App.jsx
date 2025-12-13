@@ -12,6 +12,7 @@ import { CartProvider } from './context/CartContext';
 import Cart from './pages/Cart';
 import ContactMe from './pages/ContactMe';
 import ProfilePage from './pages/ProfilePage';
+import Favourites from './pages/Favourites';
 import ComingSoon from './pages/ComingSoon';
 import { IS_COMING_SOON_MODE } from './config/comingSoon';
 
@@ -93,6 +94,7 @@ function App() {
                   <Route path="/payment" element={<Payment />} />
                   <Route path="/contact" element={<ContactMe />} />
                   <Route path="/profile" element={<ProfilePage />} />
+                  <Route path="/favourites" element={<Favourites />} />
                 </Routes>
               </MainContent>
               <Footer />
