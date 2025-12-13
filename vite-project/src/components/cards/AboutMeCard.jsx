@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import PropTypes from 'prop-types';
 
 const Card = styled.div`
   width: 38vh;
@@ -11,9 +10,9 @@ const Card = styled.div`
   justify-content: center;
   position: relative;
   cursor: pointer;
-  margin-top: 8vh;
+  margin-top: 6vh;
   margin-left: 8vh;
-  margin-bottom: 8vh;
+  margin-bottom: 6vh;
   overflow: hidden;
   background-color: #f0f0f0;
 `

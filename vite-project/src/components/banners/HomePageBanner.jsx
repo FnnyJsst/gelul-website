@@ -5,7 +5,7 @@ import { BsArrowRight } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
 const BannerDiv = styled.div`
-  height: 38vh;
+  height: 30vh;
   width: 100%;
   padding: 4vh;
   padding-left: 10vh;

@@ -2,11 +2,9 @@ import styled from "styled-components";
 import HomePageBanner from "../components/banners/HomePageBanner";
 import HomeCard from "../components/cards/HomeCard";
 import AboutMe from "./AboutMe";
-import ContactMe from "./ContactMe";
 import peinture from "../assets/images/peinture.jpg";
 import banc2 from "../assets/images/banc2.jpg";
 import pot from "../assets/images/pot.jpg"
-import { fontSizes } from "../constants/style";
 
 const CardDiv = styled.div`
   display: flex;
@@ -29,7 +27,6 @@ function HomePage () {
         <HomeCard cardTitle={"Peintures"} backgroundImage={peinture}/>
       </CardDiv>
       <AboutMe />
-      {/* <ContactMe /> */}
     </>
   )
 }

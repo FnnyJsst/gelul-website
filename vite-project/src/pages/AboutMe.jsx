@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import AboutMeCard from "../components/cards/AboutMeCard";
 import { fontSizes } from "../constants/style";
+import logo from "../assets/images/logo.png";
 
 const PageContainer = styled.div`
   display: flex;
@@ -24,8 +25,23 @@ const RightSection = styled.div`
 const Title = styled.h1`
   font-size: ${fontSizes.mediumTitle};
   font-weight: 500;
-  margin-top: 8vh;
-  margin-bottom: 5vh;
+  margin-top: 4vh;
+  margin-bottom: 3vh;
+  line-height: 1.4;
+`;
+
+const TitleLine = styled.span`
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+`;
+
+const LogoImage = styled.img`
+  height: 1.5em;
+  display: inline-block;
+  vertical-align: middle;
+  transform: translateY(8px);
+  object-fit: contain;
 `;
 
 const Paragraph = styled.p`
@@ -44,7 +60,10 @@ function AboutMe () {
             <AboutMeCard />
           </LeftSection>
           <RightSection>
-              <Title>La philosophie GELUL : <br /> Donner une seconde vie à la matière</Title>
+              <Title>
+                <TitleLine>La philosophie <LogoImage src={logo} alt="GELUL" /> :</TitleLine>
+                <br /> Donner une seconde vie à la matière
+              </Title>
               <Paragraph>Fabriquée dans mon atelier situé à Bayeux, chaque pièce raconte une histoire unique. <br /><br />
                          Ma démarche s'articule autour du réemploi : je crée des œuvres esthétiques 
                          et fonctionnelles en transformant des matériaux destinés à être jetés. 
