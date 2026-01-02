@@ -3,49 +3,61 @@ import styled from 'styled-components'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 import { IoEyeOutline, IoEyeOffOutline } from 'react-icons/io5'
+import bluePlate from '../assets/images/blue-plate.jpeg'
+import LargeButton from '../components/buttons/LargeButton'
+import { colors, fontSizes } from '../constants/style'
 
 const PageWrapper = styled.div`
-  min-height: calc(100vh - 160px);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  background-color: #fafafa;
+  padding: 2.5rem;
+  background-image: url(${bluePlate});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 `
 
 const FormContainer = styled.div`
   background: white;
   padding: 3rem;
-  border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 450px;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  background-color:rgba(226, 217, 217);
+  border-radius: 16px;
+
+  @media (max-width: 768px) {
+    padding: 3.5rem 1.5rem 4rem;
+  }
 `
 
 const Title = styled.h1`
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-  color: #000;
+  font-size: ${fontSizes.smallTitle};
+  font-weight: 500;
   text-align: center;
 `
 
 const Subtitle = styled.p`
-  color: #666;
+  font-size: ${fontSizes.large};
+  margin-top: -20px;
   text-align: center;
-  margin-bottom: 2rem;
-  font-size: 0.95rem;
 `
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
 `
 
 const FormGroup = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
 `
 
 const Label = styled.label`
@@ -55,19 +67,21 @@ const Label = styled.label`
 `
 
 const Input = styled.input`
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-  transition: border-color 0.2s;
-  
+  width: 100%;
+  padding: 0.9rem 1.1rem;
+  border-radius: 14px;
+  border: 2px solid ${colors.lightGray};
+  background-color: ${colors.white};
+  font-size: ${fontSizes.medium};
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
   &:focus {
     outline: none;
-    border-color: rgb(107, 107, 77);
+    border-color: ${colors.black};
   }
-  
+
   &::placeholder {
-    color: #999;
+    color: ${colors.gray};
   }
 `
 
@@ -128,7 +142,6 @@ const LinksContainer = styled.div`
   flex-direction: column;
   gap: 1rem;
   align-items: center;
-  margin-top: 1rem;
 `
 
 const StyledLink = styled(Link)`
@@ -138,21 +151,6 @@ const StyledLink = styled(Link)`
   
   &:hover {
     text-decoration: underline;
-  }
-`
-
-const Divider = styled.div`
-  width: 100%;
-  text-align: center;
-  border-bottom: 1px solid #ddd;
-  line-height: 0.1em;
-  margin: 1.5rem 0;
-  
-  span {
-    background: white;
-    padding: 0 1rem;
-    color: #666;
-    font-size: 0.9rem;
   }
 `
 
@@ -252,17 +250,13 @@ function Login() {
             </PasswordInputWrapper>
           </FormGroup>
 
-          <Button type="submit" disabled={loading}>
+          <LargeButton type="submit" disabled={loading} backgroundColor="#000" color="white">
             {loading ? 'Connexion...' : 'Se connecter'}
-          </Button>
+          </LargeButton>
         </Form>
 
         <LinksContainer>
           <StyledLink to="/forgot-password">Mot de passe oublié ?</StyledLink>
-          
-          <Divider>
-            <span>ou</span>
-          </Divider>
           
           <div>
             Pas encore de compte ?{' '}
