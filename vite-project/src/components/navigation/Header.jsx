@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useContext, useRef, useEffect } from "react";
 import styled from "styled-components";
-import { IoMenuOutline, IoPersonOutline, IoHeartOutline, IoCartOutline } from "react-icons/io5";
+import { IoMenuOutline, IoPersonOutline, IoHeartOutline, IoCartOutline, IoLogOutOutline } from "react-icons/io5";
 import { PiBasket } from "react-icons/pi";
 import logo from "../../assets/images/logo.png"
 import IconHeader from "../buttons/IconHeader"
 import Sidebar from "./Sidebar";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -143,14 +144,130 @@ const Logo = styled.img`
   height: 3rem;
 `;
 
+const UserMenuContainer = styled.div`
+  position: relative;
+`
+
+const UserMenu = styled.div`
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  background-color: #ffffff;
+  min-width: 200px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 0.5rem 0;
+  opacity: ${props => props.$isVisible ? '1' : '0'};
+  visibility: ${props => props.$isVisible ? 'visible' : 'hidden'};
+  transform: ${props => props.$isVisible ? 'translateY(0)' : 'translateY(-10px)'};
+  transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+  z-index: 1000;
+`
+
+const UserMenuItem = styled(Link)`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  color: #000;
+  font-size: 0.95rem;
+  transition: background-color 0.2s, color 0.2s;
+  
+  &:hover {
+    background-color: #f5f5f5;
+    color: rgb(107, 107, 77);
+  }
+
+  svg {
+    font-size: 1.2rem;
+  }
+`
+
+const UserMenuButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #000;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  
+  &:hover {
+    background-color: #f5f5f5;
+    color: rgb(107, 107, 77);
+  }
+
+  svg {
+    font-size: 1.2rem;
+  }
+`
+
+const UserMenuDivider = styled.div`
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 0.5rem 0;
+`
+
+const UserInfo = styled.div`
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+`
+
+const UserName = styled.div`
+  font-weight: 600;
+  color: #000;
+  font-size: 0.95rem;
+`
+
+const UserEmail = styled.div`
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.25rem;
+`
 
 function Header() {
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [boutiqueDropdownVisible, setBoutiqueDropdownVisible] = useState(false);
+  const [userMenuVisible, setUserMenuVisible] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, isAuthenticated, logout } = useContext(AuthContext);
+  const userMenuRef = useRef(null);
+
+  // Fermer le menu utilisateur si on clique en dehors
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setUserMenuVisible(false);
+      }
+    }
+
+    if (userMenuVisible) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }
+  }, [userMenuVisible]);
 
   function toggleSidebar() {
     setSidebarVisible(!sidebarVisible);
+  }
+
+  function toggleUserMenu() {
+    setUserMenuVisible(!userMenuVisible);
+  }
+
+  function handleLogout() {
+    logout();
+    setUserMenuVisible(false);
+    navigate('/');
   }
 
   const isActive = (path) => {
@@ -215,9 +332,42 @@ function Header() {
           </NavigationLink>
         </MiddleSection>
         <RightSection>
-          <Link to="/profile">
-            <IconHeader Icon={IoPersonOutline} />
-          </Link>
+          {isAuthenticated ? (
+            <UserMenuContainer ref={userMenuRef}>
+              <div onClick={toggleUserMenu} style={{ cursor: 'pointer' }}>
+                <IconHeader Icon={IoPersonOutline} />
+              </div>
+              <UserMenu $isVisible={userMenuVisible}>
+                <UserInfo>
+                  <UserName>{user?.name}</UserName>
+                  <UserEmail>{user?.email}</UserEmail>
+                </UserInfo>
+                <UserMenuItem 
+                  to="/profile" 
+                  onClick={() => setUserMenuVisible(false)}
+                >
+                  <IoPersonOutline />
+                  Mon profil
+                </UserMenuItem>
+                <UserMenuItem 
+                  to="/favourites" 
+                  onClick={() => setUserMenuVisible(false)}
+                >
+                  <IoHeartOutline />
+                  Mes favoris
+                </UserMenuItem>
+                <UserMenuDivider />
+                <UserMenuButton onClick={handleLogout}>
+                  <IoLogOutOutline />
+                  Déconnexion
+                </UserMenuButton>
+              </UserMenu>
+            </UserMenuContainer>
+          ) : (
+            <Link to="/login">
+              <IconHeader Icon={IoPersonOutline} />
+            </Link>
+          )}
           <Link to="/favourites">
             <IconHeader Icon={IoHeartOutline} />
           </Link>

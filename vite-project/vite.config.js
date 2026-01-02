@@ -24,5 +24,32 @@ export default defineConfig({
   server: {
     port: 5173,
     open: true,
+    hmr: {
+      overlay: true,
+    },
+  },
+  // Optimisation des dépendances
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react-router-dom', 'styled-components', 'primereact'],
+    exclude: ['chart.js', 'quill'],
+    esbuildOptions: {
+      plugins: [
+        {
+          name: 'ignore-optional-deps',
+          setup(build) {
+            // Ignorer les dépendances optionnelles de PrimeReact
+            build.onResolve({ filter: /^(chart\.js\/auto|quill)$/ }, () => ({
+              path: 'data:text/javascript,export default {}',
+              external: false,
+              namespace: 'empty-module',
+            }))
+            build.onLoad({ filter: /.*/, namespace: 'empty-module' }, () => ({
+              contents: 'export default {}',
+              loader: 'js',
+            }))
+          },
+        },
+      ],
+    },
   },
 })

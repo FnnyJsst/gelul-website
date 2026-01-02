@@ -9,12 +9,17 @@ import { PrimeReactProvider } from 'primereact/api';
 import Payment from './pages/Payment';
 import ProductPage from './pages/ProductPage';
 import { CartProvider } from './context/CartContext';
+import { AuthProvider } from './context/AuthContext';
 import Cart from './pages/Cart';
 import ContactMe from './pages/ContactMe';
 import ProfilePage from './pages/ProfilePage';
 import Favourites from './pages/Favourites';
 import ComingSoon from './pages/ComingSoon';
 import Portfolio from './pages/Portfolio';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
+import ProtectedRoute from './components/ProtectedRoute';
 import { IS_COMING_SOON_MODE } from './config/comingSoon';
 
 const GlobalStyle = createGlobalStyle `
@@ -80,30 +85,56 @@ function App() {
   // Sinon, afficher le site complet
   return (
     <>
-      <CartProvider>
-        <PrimeReactProvider>
-          <GlobalStyle />
-          <AppContainer>
-            <Router>
-              <Header />
-              <MainContent>
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/boutique" element={<HomeBoutique />} />
-                  <Route path="/product/:id" element={<ProductPage />} />
-                  <Route path="/cart" element={<Cart />} />
-                  <Route path="/payment" element={<Payment />} />
-                  <Route path="/contact" element={<ContactMe />} />
-                  <Route path="/profile" element={<ProfilePage />} />
-                  <Route path="/favourites" element={<Favourites />} />
-                  <Route path="/portfolio" element={<Portfolio />} />
-                </Routes>
-              </MainContent>
-              <Footer />
-            </Router>
-          </AppContainer>
-        </PrimeReactProvider>
-      </CartProvider>
+      <AuthProvider>
+        <CartProvider>
+          <PrimeReactProvider>
+            <GlobalStyle />
+            <AppContainer>
+              <Router>
+                <Header />
+                <MainContent>
+                  <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/boutique" element={<HomeBoutique />} />
+                    <Route path="/product/:id" element={<ProductPage />} />
+                    <Route path="/cart" element={<Cart />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
+                    <Route path="/contact" element={<ContactMe />} />
+                    <Route path="/portfolio" element={<Portfolio />} />
+                    <Route 
+                      path="/payment" 
+                      element={
+                        <ProtectedRoute>
+                          <Payment />
+                        </ProtectedRoute>
+                      } 
+                    />
+                    <Route 
+                      path="/profile" 
+                      element={
+                        <ProtectedRoute>
+                          <ProfilePage />
+                        </ProtectedRoute>
+                      } 
+                    />
+                    <Route 
+                      path="/favourites" 
+                      element={
+                        <ProtectedRoute>
+                          <Favourites />
+                        </ProtectedRoute>
+                      } 
+                    />
+                  </Routes>
+                </MainContent>
+                <Footer />
+              </Router>
+            </AppContainer>
+          </PrimeReactProvider>
+        </CartProvider>
+      </AuthProvider>
     </>
   )
 }

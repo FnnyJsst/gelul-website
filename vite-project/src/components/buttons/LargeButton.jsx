@@ -8,6 +8,7 @@ const Button = styled.button `
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   font-weight: 600;
   background: ${(props) => props.$backgroundColor || "white"};
@@ -55,11 +56,20 @@ const Button = styled.button `
   }
 `;
 
-function LargeButton ({Icon, onClick, iconWidth, iconHeight, text, backgroundColor = "ffffff", color = "#black" }) {
+function LargeButton ({Icon, onClick, iconWidth, iconHeight, text, children, backgroundColor = "#ffffff", color = "black", type = "button", disabled = false, ...props }) {
   return (
     <>
-      <Button onClick={onClick} $iconWidth={iconWidth} $iconHeight={iconHeight} $backgroundColor={backgroundColor} $color={color}>
-        {text}
+      <Button 
+        onClick={onClick} 
+        $iconWidth={iconWidth} 
+        $iconHeight={iconHeight} 
+        $backgroundColor={backgroundColor} 
+        $color={color}
+        type={type}
+        disabled={disabled}
+        {...props}
+      >
+        {text || children}
         {Icon && <Icon />}
       </Button>
     </>
