@@ -6,14 +6,16 @@ import logo from "../assets/images/logo.png";
 const PageContainer = styled.div`
   display: flex;
   flex-direction: row;
-  margin-left: 12vh;
+  background-color: #f2eaea;
+
 `;
 
 const LeftSection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 6vh;
+  margin-left: 12vh;
+
 `;
 
 const RightSection = styled.div`

@@ -28,12 +28,12 @@ const Card = styled.div`
   position: relative;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   
   &:hover {
     transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     
     ${Overlay} {
       background: rgba(0, 0, 0, 0.4);

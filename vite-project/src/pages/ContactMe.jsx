@@ -9,14 +9,14 @@ const PageContainer = styled.main`
   flex-direction: column;
   align-items: center;
   padding: 2.5rem;
-  background-image: url(${bluePlate});
+  // background-image: url(${bluePlate});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 `
 
 const Content = styled.section`
-  width: 70%;
+  width: 60%;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
@@ -30,13 +30,13 @@ const Content = styled.section`
 `
 
 const Title = styled.h1`
-  font-size: ${fontSizes.smallTitle};
+  font-size: ${fontSizes.xlarge};
   font-weight: 500;
   text-align: left;
 `
 
 const Paragraph = styled.p`
-  font-size: ${fontSizes.large};
+  font-size: ${fontSizes.medium};
   margin-top: -20px;
 `
 
@@ -373,7 +373,7 @@ function ContactMe() {
       <PageContainer>
         <Content>
           <Title>Un projet sur mesure&nbsp;? Une question&nbsp;? 😊</Title>
-          <Paragraph>Contactez-moi via le formulaire ci-dessous et je vous répondrai sous 24 heures.</Paragraph>
+          <Paragraph>Contactez-moi via le formulaire ci-dessous et je vous répondrai sous 48 heures.</Paragraph>
 
         <ContactForm noValidate onSubmit={handleSubmit}>
           {status === 'success' && (

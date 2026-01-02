@@ -12,7 +12,7 @@ const PageWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 2.5rem;
-  background-image: url(${bluePlate});
+  // background-image: url(${bluePlate});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -23,7 +23,7 @@ const FormContainer = styled.div`
   padding: 3rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 600px;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   gap: 1.8rem;
@@ -111,7 +111,7 @@ const ErrorMessage = styled.div`
   background-color: #fee;
   color: #c33;
   padding: 0.75rem;
-  border-radius: 4px;
+  border-radius: 8px;
   font-size: 0.9rem;
   text-align: center;
 `

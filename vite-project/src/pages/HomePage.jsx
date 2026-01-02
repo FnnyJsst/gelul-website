@@ -5,6 +5,7 @@ import AboutMe from "./AboutMe";
 import peinture from "../assets/images/peinture.jpg";
 import banc2 from "../assets/images/banc2.jpg";
 import pot from "../assets/images/pot.jpg"
+import HomeBoutique from "./HomeBoutique";
 
 const CardDiv = styled.div`
   display: flex;
@@ -12,8 +13,8 @@ const CardDiv = styled.div`
   align-item: center;
   gap: 20vh;
   justify-content: center;
-  padding-top: 6vh;
-  padding-bottom: 6vh;
+  padding-top: 4vh;
+  padding-bottom: 4vh;
   background-color: #f2eaea;
 `;
 
@@ -21,12 +22,13 @@ function HomePage () {
   return (
     <>
       <HomePageBanner />
-      <CardDiv>
+      {/* <CardDiv>
         <HomeCard cardTitle={"Mobilier"} backgroundImage={banc2}/>
         <HomeCard cardTitle={"Décoration"}backgroundImage={pot}/>
         <HomeCard cardTitle={"Peintures"} backgroundImage={peinture}/>
-      </CardDiv>
+      </CardDiv> */}
       <AboutMe />
+      <HomeBoutique />
     </>
   )
 }

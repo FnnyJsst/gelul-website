@@ -14,11 +14,14 @@ const HeaderContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   background-color: #ffffff;
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
   height: 3rem;
   padding: 0 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 
 const LeftSection = styled.div`
@@ -321,12 +324,12 @@ function Header() {
               ))}
             </DropdownMenu>
           </DropdownContainer>
-          <NavigationLink to="/portfolio" $active={isActive('/portfolio')}>
+          {/* <NavigationLink to="/portfolio" $active={isActive('/portfolio')}>
             Portfolio
-          </NavigationLink>
-          <NavigationLink to="/events" $active={isActive('/events')}>
+          </NavigationLink> */}
+          {/* <NavigationLink to="/events" $active={isActive('/events')}>
             Évènements
-          </NavigationLink>
+          </NavigationLink> */}
           <NavigationLink to="/contact" $active={isActive('/contact')}>
             Contact
           </NavigationLink>

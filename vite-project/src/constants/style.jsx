@@ -7,16 +7,16 @@ const colors = {
 }
 
 const fontSizes = {
-  small: '14px',
-  medium: '16px',
-  large: '18px',
-  xlarge: '20px',
-  xxlarge: '22px',
-  smallTitle: '24px',
-  mediumTitle: '28px',
-  largeTitle: '30px',
-  xlargeTitle: '38px',
-  xxlargeTitle: '40px'
+  small: '1épx',
+  medium: '14px',
+  large: '16px',
+  xlarge: '18px',
+  xxlarge: '20px',
+  smallTitle: '22px',
+  mediumTitle: '24px',
+  largeTitle: '26px',
+  xlargeTitle: '30px',
+  xxlargeTitle: '32px'
 }
 
 export { colors, fontSizes };
