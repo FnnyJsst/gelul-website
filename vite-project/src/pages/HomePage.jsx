@@ -1,34 +1,25 @@
 import styled from "styled-components";
 import HomePageBanner from "../components/banners/HomePageBanner";
-import HomeCard from "../components/cards/HomeCard";
 import AboutMe from "./AboutMe";
-import peinture from "../assets/images/peinture.jpg";
-import banc2 from "../assets/images/banc2.jpg";
-import pot from "../assets/images/pot.jpg"
-import HomeBoutique from "./HomeBoutique";
+import HomeBoutiqueRowCard from "../components/cards/HomeBoutiqueRowCard";
+import LargeButton from "../components/buttons/LargeButton";
+import { colors } from "../constants/style";
 
-const CardDiv = styled.div`
+const ButtonWrapper = styled.div`
   display: flex;
-  flex-direction: row;
-  align-item: center;
-  gap: 20vh;
   justify-content: center;
-  padding-top: 4vh;
-  padding-bottom: 4vh;
-  background-color: #f2eaea;
-`;
+  margin-bottom: 4vh;
+`
 
 function HomePage () {
   return (
     <>
       <HomePageBanner />
-      {/* <CardDiv>
-        <HomeCard cardTitle={"Mobilier"} backgroundImage={banc2}/>
-        <HomeCard cardTitle={"Décoration"}backgroundImage={pot}/>
-        <HomeCard cardTitle={"Peintures"} backgroundImage={peinture}/>
-      </CardDiv> */}
       <AboutMe />
-      <HomeBoutique />
+      <HomeBoutiqueRowCard />
+      <ButtonWrapper>
+        <LargeButton text="Découvrir tous les produits" href="/boutique" backgroundColor={colors.black} color="white" />
+      </ButtonWrapper>
     </>
   )
 }

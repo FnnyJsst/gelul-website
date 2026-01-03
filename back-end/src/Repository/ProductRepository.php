@@ -24,11 +24,13 @@ class ProductRepository extends ServiceEntityRepository
 
     public function findByFilters(int $page, int $limit, ?string $category = null, ?string $search = null): array
     {
-        $qb = $this->createQueryBuilder('p');
+        $qb = $this->createQueryBuilder('p')
+            ->leftJoin('p.category', 'c')
+            ->addSelect('c');
 
         // Ajout des filtres si présents
         if ($category) {
-            $qb->andWhere('p.category = :category')
+            $qb->andWhere('c.slug = :category OR c.name = :category')
                ->setParameter('category', $category);
         }
 

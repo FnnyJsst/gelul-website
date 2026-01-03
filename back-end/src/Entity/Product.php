@@ -30,11 +30,11 @@ class Product
     #[Assert\Length(min: 1, max: 255, minMessage: "Le nom doit comporter au moins {{ limit }} caractère", maxMessage: "Le nom ne peut pas dépasser {{ limit }} caractères")]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'products')]
+    #[ORM\JoinColumn(nullable: false)]
     #[Groups(['product:read', 'product:write'])]
-    #[Assert\NotBlank(message: "La catégorie est obligatoire")]
-    #[Assert\Length(min: 1, max: 255, minMessage: "La catégorie doit comporter au moins {{ limit }} caractère", maxMessage: "La catégorie ne peut pas dépasser {{ limit }} caractères")]
-    private ?string $category = null;
+    #[Assert\NotNull(message: "La catégorie est obligatoire")]
+    private ?Category $category = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     #[Groups(['product:read', 'product:write'])]
@@ -105,12 +105,12 @@ class Product
         return $this;
     }
 
-    public function getCategory(): ?string
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
 
-    public function setCategory(string $category): static
+    public function setCategory(?Category $category): static
     {
         $this->category = $category;
 

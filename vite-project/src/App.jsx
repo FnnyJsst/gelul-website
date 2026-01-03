@@ -21,6 +21,7 @@ import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import ProtectedRoute from './components/ProtectedRoute';
 import { IS_COMING_SOON_MODE } from './config/comingSoon';
+import DevModeIndicator from './components/DevModeIndicator';
 
 const GlobalStyle = createGlobalStyle `
   * {
@@ -131,6 +132,7 @@ function App() {
                   </Routes>
                 </MainContent>
                 <Footer />
+                <DevModeIndicator />
               </Router>
             </AppContainer>
           </PrimeReactProvider>

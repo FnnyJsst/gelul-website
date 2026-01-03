@@ -1,18 +1,26 @@
-import React, { useMemo, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useMemo, useState, useEffect } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import ProductBanner from '../components/banners/ProductBanner'
 import QuantityCard from '../components/cards/QuantityCard'
 import ColorSelector from '../components/ColorSelector'
+import Breadcrumb from '../components/Breadcrumb'
 import styled from 'styled-components'
 import { fontSizes, colors } from '../constants/style'
 import ShippingCard from '../components/cards/ShippingCard'
 import defaultImage from '../assets/images/banc2.jpg'
+import { productAPI } from '../services/api'
 
 
 const ContentContainer = styled.div`
   min-height: 50vh;
   padding: 3.5rem;
   background-color: #f8f8f8;
+`
+
+const BreadcrumbWrapper = styled.div`
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 3.5rem;
 `
 
 const ProductDetails = styled.div`
@@ -57,25 +65,102 @@ const ProductDescription = styled.p`
 `;
 
 function ProductPage({
-  name = 'Nom du produit',
-  price = '100€',
-  description = 'Ceci est une description du produit',
-  image = defaultImage
+  name: propName,
+  price: propPrice,
+  description: propDescription,
+  image: propImage
 }) {
   const { id } = useParams()
+  const navigate = useNavigate()
   const [selectedColor, setSelectedColor] = useState(null)
+  const [product, setProduct] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   const productId = useMemo(() => id ?? 'produit-demo', [id])
+
+  useEffect(() => {
+    if (id) {
+      loadProduct()
+    } else {
+      setLoading(false)
+    }
+  }, [id])
+
+  const loadProduct = async () => {
+    try {
+      setLoading(true)
+      const data = await productAPI.getById(id)
+      setProduct(data)
+      setError(null)
+    } catch (err) {
+      console.error('Erreur lors du chargement du produit:', err)
+      setError('Produit non trouvé')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Utiliser les données du produit chargé ou les props par défaut
+  const name = product?.name || propName || 'Nom du produit'
+  const price = product?.price || propPrice || '100€'
+  const description = product?.description || propDescription || 'Ceci est une description du produit'
+  const image = product?.image || propImage || defaultImage
+
+  // Construire le breadcrumb
+  const breadcrumbItems = [
+    {
+      label: 'Boutique',
+      onClick: () => navigate('/boutique')
+    }
+  ]
+
+  if (product?.category) {
+    breadcrumbItems.push({
+      label: product.category.name,
+      onClick: () => navigate(`/boutique?category=${product.category.slug}`)
+    })
+  }
+
+  breadcrumbItems.push({
+    label: name
+  })
+
+  if (loading) {
+    return (
+      <>
+        <ProductBanner />
+        <ContentContainer>
+          <p style={{ textAlign: 'center', padding: '3rem' }}>Chargement du produit...</p>
+        </ContentContainer>
+      </>
+    )
+  }
+
+  if (error) {
+    return (
+      <>
+        <ProductBanner />
+        <ContentContainer>
+          <p style={{ textAlign: 'center', padding: '3rem', color: '#e74c3c' }}>{error}</p>
+        </ContentContainer>
+      </>
+    )
+  }
 
   return (
     <>
       <ProductBanner />
       <ContentContainer>
+        <BreadcrumbWrapper>
+          <Breadcrumb items={breadcrumbItems} showHome={true} />
+        </BreadcrumbWrapper>
+        
         <ProductDetails>
           <ProductImage src={image} alt={name} />
           <ProductInfo>
             <ProductName>{name}</ProductName>
-            <ProductPrice>{price}</ProductPrice>
+            <ProductPrice>{typeof price === 'string' ? price : `${price}€`}</ProductPrice>
             <ProductDescription>{description}</ProductDescription>
             <ColorSelector onChange={setSelectedColor} />
             <QuantityCard

@@ -3,11 +3,13 @@ const colors = {
   black: '#1F1F1F',
   gray: '#777474',
   lightGray: '#D9D9D9',
-  green: '#51AD3C'
+  green: '#51AD3C',
+  darkGray: '#3B3A3A'
 }
 
 const fontSizes = {
-  small: '1épx',
+  xsmall: '11px',
+  small: '12px',
   medium: '14px',
   large: '16px',
   xlarge: '18px',
